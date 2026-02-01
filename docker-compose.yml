@@ -33,7 +33,9 @@ services:
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-    command: start-dev
+    volumes:
+      - ./keycloak-realm.json:/opt/keycloak/data/import/realm.json
+    command: start-dev --import-realm
     ports:
       - "8080:8080"
     healthcheck:
