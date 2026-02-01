@@ -1,0 +1,99 @@
+services:
+  backend:
+    container_name: backend
+    # entrypoint: sh -c "npm i && npm run start:dev"
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: development
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: schdusr
+      POSTGRES_PASSWORD: password
+      POSTGRES_DATABASE: scheduler
+    # image: node:22
+    ports: ["3001:3000"]
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--quiet",
+          "--tries=1",
+          "--spider",
+          "http://localhost:3000/api",
+        ]
+    working_dir: "/app"
+    volumes:
+      - ./backend/data:/app/data
+
+  frontend:
+    container_name: frontend
+    entrypoint: sh -c "npm ci && npm run dev"
+    environment:
+      BACKEND_URL: http://backend:3000
+      PORT: 3000
+      NODE_ENV: development
+    image: node:22
+    ports: ["3000:3000"]
+    volumes: ["./frontend:/app", "/app/node_modules"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+    working_dir: "/app"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: schdusr
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: scheduler
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "schdusr", "-d", "scheduler"]
+    # Install AWS CLI on container startup
+    command: >
+      bash -c "
+      apt-get update &&
+      apt-get install -y curl unzip miller &&
+      curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o 'awscliv2.zip' &&
+      unzip -o awscliv2.zip &&
+      ./aws/install &&
+      rm -rf awscliv2.zip aws &&
+      docker-entrypoint.sh postgres
+      "
+  migrations:
+    image: flyway/flyway:10-alpine
+    container_name: migrations
+    command: migrate
+    volumes: ["./migrations/sql:/flyway/sql:ro"]
+    environment:
+      FLYWAY_URL: jdbc:postgresql://postgres:5432/scheduler
+      FLYWAY_USER: schdusr
+      FLYWAY_PASSWORD: password
+      FLYWAY_BASELINE_ON_MIGRATE: true
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  caddy:
+    container_name: caddy
+    profiles: ["caddy"]
+    build: ./frontend
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      BACKEND_URL: http://backend:3000
+      LOG_LEVEL: info
+    ports: ["3005:3000"]
+    volumes: ["./frontend/Caddyfile:/etc/caddy/Caddyfile"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+    depends_on:
+      backend:
+        condition: service_healthy
