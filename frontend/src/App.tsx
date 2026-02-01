@@ -2,7 +2,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import "./index.css"
 import { useEffect, useState } from "react"
-import { Footer } from "@bcgov/design-system-react-components"
 import { useDispatch, useSelector } from "react-redux"
 import DashboardPage from "./pages/DashboardPage"
 import AvailabilityPage from "./pages/AvailabilityPage"

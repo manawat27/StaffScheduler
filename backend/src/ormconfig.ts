@@ -2,7 +2,7 @@ import { TypeOrmModuleOptions } from "@nestjs/typeorm";
 const ormconfig: TypeOrmModuleOptions = {
   logging: ["error"],
   type: "postgres",
-  host: process.env.POSTGRES_HOST || "postgres",
+  host: process.env.POSTGRES_HOST || "localhost",
   port: 5432,
   database: process.env.POSTGRES_DATABASE || "scheduler",
   username: process.env.POSTGRES_USER || "schdusr",
