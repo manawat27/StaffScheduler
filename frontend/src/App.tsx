@@ -6,12 +6,13 @@ import { useDispatch, useSelector } from "react-redux"
 import DashboardPage from "./pages/DashboardPage"
 import AvailabilityPage from "./pages/AvailabilityPage"
 import SchedulePage from "./pages/SchedulePage"
+import LoginPage from "./pages/LoginPage"
 
 export default function App() {
   return (
     <Routes>
       {/* Public */}
-      {/* <Route path="/login" element={<LoginPage />} /> */}
+      <Route path="/" element={<LoginPage />} />
 
       {/* Protected */}
       <Route path="/dashboard" element={<DashboardPage />} />
