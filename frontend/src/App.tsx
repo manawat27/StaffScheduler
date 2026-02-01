@@ -1,9 +1,7 @@
 // import Footer from '@/components/Footer'
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import "./index.css"
-import { useEffect, useState } from "react"
-import { Footer } from "@bcgov/design-system-react-components"
-import { useDispatch, useSelector } from "react-redux"
+import KeycloakService from "./auth/keycloakService"
 import DashboardPage from "./pages/DashboardPage"
 import AvailabilityPage from "./pages/AvailabilityPage"
 import SchedulePage from "./pages/SchedulePage"
@@ -11,17 +9,14 @@ import SchedulePage from "./pages/SchedulePage"
 export default function App() {
   return (
     <Routes>
-      {/* Public */}
-      {/* <Route path="/login" element={<LoginPage />} /> */}
-
       {/* Protected */}
-      <Route path="/dashboard" element={<DashboardPage />} />
+      <Route path="/" element={<DashboardPage />} />
       <Route path="/availability" element={<AvailabilityPage />} />
       <Route path="/schedule" element={<SchedulePage />} />
 
       {/* Default */}
-      <Route path="/" element={<Navigate to="/dashboard" replace />} />
-      <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      <Route path="/" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
 }

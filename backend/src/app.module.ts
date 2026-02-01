@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { MiddlewareConsumer, Module, RequestMethod } from "@nestjs/common";
 import { HTTPLoggerMiddleware } from "./middleware/req.res.logger";
+import { KeycloakMiddleware } from "./middleware/keycloak.middleware";
 import { ConfigModule } from "@nestjs/config";
 import { AppService } from "./app.service";
 import { AppController } from "./app.controller";
@@ -23,7 +24,7 @@ import ormconfig from "src/ormconfig";
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(HTTPLoggerMiddleware)
+      .apply(KeycloakMiddleware, HTTPLoggerMiddleware)
       .exclude(
         { path: "metrics", method: RequestMethod.ALL },
         { path: "health", method: RequestMethod.ALL },
