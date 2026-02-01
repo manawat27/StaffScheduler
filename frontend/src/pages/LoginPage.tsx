@@ -1,12 +1,7 @@
-import React, { useEffect } from 'react';
-import keycloak from '../keycloak';
+import React from 'react';
 
 
 const LoginPage: React.FC = () => {
-  useEffect(() => {
-    keycloak.init({ onLoad: 'login-required' });
-  }, []);
-
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-80 text-center">
