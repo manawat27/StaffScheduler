@@ -2,7 +2,7 @@ import React from "react"
 
 const Footer = () => {
   return (
-    <footer className="w-full h-10 bg-blue-700 text-white text-center py-4 mt-auto">
+    <footer className="w-full bg-gradient-to-r from-blue-800 to-blue-500 text-white h-10 text-center py-4 mt-auto">
       <span>© 2026 Staff Scheduler. All rights reserved.</span>
     </footer>
   )
