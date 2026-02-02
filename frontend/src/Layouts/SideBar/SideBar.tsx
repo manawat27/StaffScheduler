@@ -1,30 +1,78 @@
-import { Link, NavLink } from "react-router-dom"
+import { useState, useEffect } from "react"
+import { NavLink } from "react-router-dom"
+import MenuIcon from "@mui/icons-material/Menu"
+import GroupsIcon from "@mui/icons-material/Groups"
+import PersonIcon from "@mui/icons-material/Person"
+import DashboardIcon from "@mui/icons-material/Dashboard"
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 
 export default function SideBar() {
+  const [collapsed, setCollapsed] = useState(() => {
+    const stored = localStorage.getItem("sidebar-collapsed")
+    return stored === "true"
+  })
+
+  useEffect(() => {
+    localStorage.setItem("sidebar-collapsed", collapsed.toString())
+  }, [collapsed])
   return (
-    <nav className="flex flex-col h-full bg-gray-800 text-white py-8 px-4 w-64 shadow-lg">
-      <div className="mb-8 text-2xl font-bold text-center tracking-wide">
+    <nav
+      className={`flex flex-col min-h-screen bg-gray-800 text-white py-8 px-4 shadow-lg transition-all duration-300 ${collapsed ? "w-20" : "w-64"}`}
+    >
+      <button
+        className="mb-6 self-end bg-gray-700 hover:bg-gray-600 rounded p-2 focus:outline-none"
+        onClick={() => setCollapsed((c) => !c)}
+        aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+      >
+        <a>
+          <MenuIcon />
+        </a>
+      </button>
+      <div
+        className={`mb-8 text-2xl font-bold text-center tracking-wide ${collapsed ? "hidden" : ""}`}
+      >
         Menu
       </div>
       <NavLink
-        to="/"
-        className="py-3 px-4 rounded hover:bg-blue-700 transition mb-2"
+        to="/account"
+        className={({ isActive }) =>
+          `py-3 px-4 rounded hover:bg-blue-700 transition mb-2 flex items-center ${collapsed ? "justify-center" : ""} ${isActive ? "bg-blue-700" : ""}`
+        }
+        title="User Account"
       >
-        Dashboard
+        <PersonIcon className="mr-2" />
+        {!collapsed && "User Account"}
       </NavLink>
       <NavLink
-        to="/availability"
-        className="py-3 px-4 rounded hover:bg-blue-700 transition mb-2"
+        to="/"
+        className={({ isActive }) =>
+          `py-3 px-4 rounded hover:bg-blue-700 transition mb-2 flex items-center ${collapsed ? "justify-center" : ""} ${isActive ? "bg-blue-700" : ""}`
+        }
+        title="Dashboard"
       >
-        Availability
+        <DashboardIcon className="mr-2" />
+        {!collapsed && "Dashboard"}
+      </NavLink>
+      <NavLink
+        to="/shift-pool"
+        className={({ isActive }) =>
+          `py-3 px-4 rounded hover:bg-blue-700 transition mb-2 flex items-center ${collapsed ? "justify-center" : ""} ${isActive ? "bg-blue-700" : ""}`
+        }
+        title="Shift Pool"
+      >
+        <GroupsIcon className="mr-2" />
+        {!collapsed && "Shift Pool"}
       </NavLink>
       <NavLink
         to="/schedule"
-        className="py-3 px-4 rounded hover:bg-blue-700 transition mb-2"
+        className={({ isActive }) =>
+          `py-3 px-4 rounded hover:bg-blue-700 transition mb-2 flex items-center ${collapsed ? "justify-center" : ""} ${isActive ? "bg-blue-700" : ""}`
+        }
+        title="Schedule"
       >
-        Schedule
+        <CalendarMonthIcon className="mr-2" />
+        {!collapsed && "Schedule"}
       </NavLink>
-      {/* Add more links as needed */}
     </nav>
   )
 }
