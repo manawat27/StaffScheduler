@@ -1,7 +1,5 @@
 import "dotenv/config";
-import { MiddlewareConsumer, Module, RequestMethod } from "@nestjs/common";
-import { HTTPLoggerMiddleware } from "./middleware/req.res.logger";
-import { KeycloakMiddleware } from "./middleware/keycloak.middleware";
+import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { AppService } from "./app.service";
 import { AppController } from "./app.controller";
@@ -9,6 +7,7 @@ import { MetricsController } from "./metrics.controller";
 import { TerminusModule } from "@nestjs/terminus";
 import { ScheduleModule } from "@nestjs/schedule";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { KeycloakStartupService } from "./keycloak-user/keycloak-startup.service";
 import ormconfig from "src/ormconfig";
 
 @Module({
@@ -22,13 +21,7 @@ import ormconfig from "src/ormconfig";
   providers: [AppService],
 })
 export class AppModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(KeycloakMiddleware, HTTPLoggerMiddleware)
-      .exclude(
-        { path: "metrics", method: RequestMethod.ALL },
-        { path: "health", method: RequestMethod.ALL },
-      )
-      .forRoutes("*");
-  }
+  constructor(
+    private readonly keycloakStartupServive: KeycloakStartupService,
+  ) {}
 }

@@ -1,0 +1,14 @@
+# Ignore backup and temporary files
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+
+# Ignore git files
+.git/
+.gitignore
+
+# Ignore documentation
+*.md
+README*
