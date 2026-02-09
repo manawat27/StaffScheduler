@@ -1,23 +1,39 @@
-# Build
-FROM node:22-slim AS build
+# Build stage
+FROM node:20-slim AS builder
 
-# Copy, build static files; see .dockerignore for exclusions
 WORKDIR /app
-COPY . ./
-RUN npm run deploy
 
-# Deploy using Caddy to host static files
-FROM caddy:2.8.4-alpine
-RUN apk add --no-cache ca-certificates
+# Install dependencies
+COPY package.json package-lock.json* ./
+RUN npm ci && npm cache clean --force
 
-# Copy static files, verify Caddyfile formatting
-COPY --from=build /app/dist /srv
-COPY Caddyfile /etc/caddy/Caddyfile
-RUN caddy fmt --overwrite /etc/caddy/Caddyfile
+# Copy source code
+COPY . .
 
-# Boilerplate, not used in OpenShift/Kubernetes
-EXPOSE 3000 3001
-HEALTHCHECK --interval=30s --timeout=3s CMD curl -f http://localhost:3001/health
+# Set build-time environment variables
+ARG VITE_KEYCLOAK_URL
+ENV VITE_KEYCLOAK_URL=$VITE_KEYCLOAK_URL
+ARG VITE_KEYCLOAK_REALM=buildops
+ENV VITE_KEYCLOAK_REALM=$VITE_KEYCLOAK_REALM
+ARG VITE_KEYCLOAK_CLIENT_ID=buildops
+ENV VITE_KEYCLOAK_CLIENT_ID=$VITE_KEYCLOAK_CLIENT_ID
+ARG VITE_API_BASE_URL=/api
+ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
 
-# Nonroot user
-USER 1001
+# Build the application
+RUN npm run build
+
+# Production stage
+FROM nginx:alpine AS production
+
+# Copy built application from builder stage
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Copy custom nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose port
+EXPOSE 3000
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]

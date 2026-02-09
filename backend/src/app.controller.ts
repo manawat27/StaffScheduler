@@ -1,14 +1,16 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
-import { KeycloakGuard } from './middleware/keycloak.guard';
-import { AppService } from './app.service';
+import { Controller, Get } from "@nestjs/common";
+import { Public } from "./auth/decorators/public.decorator";
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor() {}
 
   @Get()
-  @UseGuards(KeycloakGuard)
-  getHello(): string {
-    return this.appService.getHello();
+  @Public()
+  checkHealth() {
+    return {
+      status: "ok",
+      timestamp: new Date().toISOString(),
+    };
   }
 }

@@ -1,0 +1,72 @@
+/* Minimal override to force a white login background */
+:root {
+  --pf-global--BackgroundColor--100: #ffffff;
+}
+html,
+body {
+  /* Light gray page background */
+  background-color: #39a5dc !important;
+  background-image: none !important;
+}
+.pf-c-login,
+.pf-c-page {
+  /* Light gray container background */
+  background-color: #39a5dc !important;
+  background-image: none !important;
+}
+
+/* Keep the login/register card white and limit its width */
+.pf-c-login__main .pf-c-card,
+.pf-v5-c-login__main .pf-v5-c-card,
+.login-pf-page .card-pf {
+  background-color: #ffffff !important; /* card stays white */
+  max-width: 480px; /* limit card width */
+  width: 100%;
+  margin: 2rem auto; /* center the card */
+  border: 1px solid #d9d9d9; /* light gray border */
+  border-radius: 4px; /* subtle rounding to match PatternFly look */
+}
+
+/* Constrain login form to fill the card (no extra max-width) */
+#kc-form-login,
+#kc-register-form {
+  max-width: 100%;
+  width: 100%;
+  margin: 0; /* card handles centering */
+}
+
+/* Make inputs fill the constrained container, not full page */
+#kc-form-login .pf-c-form-control,
+#kc-register-form .pf-c-form-control,
+#kc-form-login .pf-v5-c-form-control,
+#kc-register-form .pf-v5-c-form-control {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Make primary buttons match input width within the constrained container */
+#kc-form-buttons .pf-c-button,
+#kc-form-buttons .pf-v5-c-button,
+#kc-login,
+#kc-register {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Ensure the login main area centers content if layout allows */
+.pf-c-login__main,
+.pf-v5-c-login__main {
+  display: flex;
+  justify-content: center;
+}
+
+/* Make the main login title larger and bold */
+#kc-header-wrapper {
+  font-size: 2.5rem !important;
+  font-weight: 400 !important;
+  color: #222e3a !important;
+  margin-bottom: 1.5rem !important;
+  text-align: center;
+  font-family: "Poppins", "Helvetica Neue", Arial, sans-serif !important;
+}
