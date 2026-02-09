@@ -40,7 +40,7 @@ services:
       -user=schdusr
       -password=password
       -schemas=org_fifth_st
-      -locations=filesystem:/flyway/migrations,filesystem:/flyway/testdata
+      -locations=filesystem:/flyway/sql
       -createSchemas=true
       -connectRetries=10
       -connectRetriesInterval=5
@@ -65,7 +65,7 @@ services:
       -user=schdusr
       -password=password
       -schemas=org_green_dragon
-      -locations=filesystem:/flyway/migrations,filesystem:/flyway/testdata
+      -locations=filesystem:/flyway/sql
       -createSchemas=true
       -connectRetries=10
       -connectRetriesInterval=5

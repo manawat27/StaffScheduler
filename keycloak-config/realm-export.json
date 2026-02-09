@@ -13,19 +13,6 @@
     "pkce.code.challenge.method": "S256",
     "post.logout.redirect.uris": "staff-scheduler://logout"
   },
-  "smtpServer": {
-    "host": "email-smtp.us-east-2.amazonaws.com",
-    "port": "587",
-    "auth": "true",
-    "ssl": "false",
-    "starttls": "true",
-    "from": "mtennant@salussystems.com",
-    "fromDisplayName": "Staff Scheduler Notification",
-    "replyTo": "mtennant@salussystems.com",
-    "user": "KC_SMTP_SERVER_USER",
-    "username": "KC_SMTP_SERVER_USER",
-    "password": "KC_SMTP_SERVER_PASSWORD"
-  },
   "clients": [
     {
       "clientId": "staff-scheduler",
