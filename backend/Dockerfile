@@ -1,39 +1,76 @@
-# Build
-FROM ghcr.io/osgeo/gdal:alpine-small-3.11.0 AS builder
+# Build stage
+FROM node:20-slim AS builder
 
-# Install dependencies and show versions
-RUN apk add --no-cache nodejs npm
-
-# Copy, build static files; see .dockerignore for exclusions
 WORKDIR /app
-COPY . ./
-RUN npm ci && npm run build
 
-# Create final image
-FROM ghcr.io/osgeo/gdal:alpine-small-3.11.0
+# Install build dependencies for native modules
+RUN apt-get update && apt-get install -y python3 make g++ && rm -rf /var/lib/apt/lists/*
 
-# Install Node.js and show versions
-RUN apk add --no-cache nodejs npm
+# Copy package files
+COPY package*.json ./
 
-# Create non-root user (OpenShift will override this at runtime)
-RUN addgroup -g 1001 -S appgroup && \
-    adduser -S appuser -u 1001 -G appgroup
+# Install all dependencies (including dev dependencies for build)
+RUN npm ci && \
+    npm install --os=linux --cpu=x64 sharp && \
+    npm cache clean --force
 
-ENV NODE_ENV=production
+# Copy source code
+COPY . .
 
-# Copy app and dependencies
+# Build the application
+RUN npm run build
+
+# Production stage  
+FROM node:20-slim AS production
+
 WORKDIR /app
-COPY --from=builder /app/node_modules ./node_modules
+
+# Install runtime dependencies and Flyway
+RUN apt-get update && apt-get install -y \
+    wget \
+    openjdk-17-jre-headless \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Flyway CLI
+ENV FLYWAY_VERSION=9.22.0
+RUN wget https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/${FLYWAY_VERSION}/flyway-commandline-${FLYWAY_VERSION}-linux-x64.tar.gz \
+    && tar -xzf flyway-commandline-${FLYWAY_VERSION}-linux-x64.tar.gz \
+    && mv flyway-${FLYWAY_VERSION} /opt/flyway \
+    && chmod +x /opt/flyway/flyway \
+    && chmod +x /opt/flyway/lib/* \
+    && rm flyway-commandline-${FLYWAY_VERSION}-linux-x64.tar.gz
+
+# Configure Flyway to use system Java by modifying the flyway script
+RUN sed -i 's|$INSTALLDIR/jre/bin/java|java|g' /opt/flyway/flyway \
+    && ln -s /opt/flyway/flyway /usr/local/bin/flyway
+
+# Configure Java environment
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+ENV PATH="$JAVA_HOME/bin:$PATH"
+
+# Add user and group for executing Flyway commands
+RUN groupadd --gid 1001 nodejs && \
+    useradd --uid 1001 --gid nodejs --system --create-home nestjs
+
+# Copy package files and install only production dependencies
+COPY package*.json ./
+RUN npm ci --only=production && \
+    npm install --os=linux --cpu=x64 sharp && \
+    npm cache clean --force
+
+# Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/src/util/watersheds_3005.gpkg ./dist/util/watersheds_3005.gpkg
 
-# Change ownership to non-root user and switch to it
-RUN chown -R appuser:appgroup /app
-USER appuser
+# Copy database migrations
+COPY --from=builder /app/database ./database
 
-# Boilerplate, not used in OpenShift/Kubernetes
+# Change ownership of the app directory and Flyway
+RUN chown -R nestjs:nodejs /app && \
+    chown -R nestjs:nodejs /opt/flyway
+
+USER nestjs
+
+# Expose port
 EXPOSE 3000
-HEALTHCHECK --interval=30s --timeout=10s --retries=3 CMD curl -f http://localhost:3000/api
 
-# limit heap size to 512 MB~
-CMD ["node", "--max-old-space-size=512", "/app/dist/main.js"]
+CMD ["npm", "run", "start:prod"]

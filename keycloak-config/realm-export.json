@@ -1,0 +1,336 @@
+{
+  "realm": "staff-scheduler",
+  "enabled": true,
+  "organizationsEnabled": true,
+  "registrationAllowed": true,
+  "verifyEmail": true,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "registrationEmailAsUsername": false,
+  "sslRequired": "none",
+  "loginTheme": "staff-scheduler-theme",
+  "attributes": {
+    "pkce.code.challenge.method": "S256",
+    "post.logout.redirect.uris": "staff-scheduler://logout"
+  },
+  "clients": [
+    {
+      "clientId": "staff-scheduler",
+      "name": "staff-scheduler Client",
+      "publicClient": true,
+      "protocol": "openid-connect",
+      "redirectUris": [
+        "http://buildops.salussystems.com/*",
+        "http://174.138.114.79/*",
+        "http://frontend:3000/*",
+        "http://localhost:3000/*",
+        "staff-scheduler://oauthredirect",
+        "staff-scheduler://*",
+        "http://localhost:8081/*",
+        "*"
+      ],
+      "webOrigins": [
+        "http://buildops.salussystems.com",
+        "http://174.138.114.79",
+        "http://frontend:3000",
+        "http://localhost:3000",
+        "*",
+        "http://localhost:3000",
+        "http://localhost:3000/*",
+        "http://frontend:3000/*",
+        "staff-scheduler://oauthredirect",
+        "http://localhost:8081",
+        "http://localhost:8081/*",
+        "http://localhost:8081/oauthredirect",
+        "http://127.0.0.1:3000",
+        "http://127.0.0.1:3000/*",
+        "http://127.0.0.1:8081",
+        "http://127.0.0.1:8081/*",
+        "http://127.0.0.1:8081/oauthredirect",
+        "http://127.0.0.1:3000",
+        "http://127.0.0.1:8081",
+        "http://localhost:3000",
+        "http://localhost:8081"
+      ],
+      "standardFlowEnabled": true,
+      "attributes": {
+        "pkce.code.challenge.method": ""
+      },
+      "protocolMappers": [
+        {
+          "name": "audience-mapper",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.client.audience": "buildops",
+            "id.token.claim": "true",
+            "access.token.claim": "true"
+          }
+        },
+        {
+          "name": "organization",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-organization-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.attribute": "organization",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "organization",
+            "introspection.token.claim": "true",
+            "jsonType.label": "JSON",
+            "multivalued": "true",
+            "lightweight.claim": false,
+            "userinfo.token.claim": "true",
+            "addOrganizationAttributes": "true",
+            "addOrganizationId": "true"
+          }
+        }
+      ],
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "organization",
+        "basic",
+        "email"
+      ]
+    }
+  ],
+  "roles": {
+    "realm": [{ "name": "admin" }, { "name": "manager" }, { "name": "staff" }]
+  },
+  "users": [
+    {
+      "username": "jsmith",
+      "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0c0",
+      "enabled": true,
+      "firstName": "John",
+      "lastName": "Smith",
+      "email": "jsmith@fifth-st.com",
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "9g7*p0/&P?D£",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["admin"]
+    },
+    {
+      "username": "djohnson",
+      "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0c1",
+      "enabled": true,
+      "firstName": "David",
+      "lastName": "Johnson",
+      "email": "djohnson@fifth-st.com",
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "gX:8O*J1cV9T",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["manager"]
+    },
+    {
+      "username": "smiller",
+      "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0c2",
+      "enabled": true,
+      "firstName": "Sarah",
+      "lastName": "Miller",
+      "email": "smiller@fifth-st.com",
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "!$ekE1336I95",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["staff"]
+    },
+    {
+      "username": "lparker",
+      "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a99",
+      "enabled": true,
+      "firstName": "Liam",
+      "lastName": "Parker",
+      "email": "lparker@green-dragon.com",
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "9Q+,O@17GO7s",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["admin"]
+    },
+    {
+      "username": "emartin",
+      "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a98",
+      "enabled": true,
+      "firstName": "Emily",
+      "lastName": "Martin",
+      "email": "emartin@green-dragon.com",
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "5rT&v1!9Xz3A",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["manager"]
+    },
+    {
+      "username": "awilson",
+      "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a97",
+      "enabled": true,
+      "firstName": "Alex",
+      "lastName": "Wilson",
+      "email": "awilson@green-dragon.com",
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "!7sPq2&Xz8Bv",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["staff"]
+    }
+  ],
+  "organizations": [
+    {
+      "id": "5c4179f0-67fb-4db5-85ec-9c8671889a11",
+      "name": "fifth-st",
+      "enabled": true,
+      "domains": [
+        {
+          "name": "fifth-st.com",
+          "verified": true
+        }
+      ],
+      "members": [
+        {
+          "username": "jsmith",
+          "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0c0",
+          "enabled": true,
+          "firstName": "John",
+          "lastName": "Smith",
+          "email": "jsmith@fifth-st.com",
+          "credentials": [
+            {
+              "type": "password",
+              "value": "9g7*p0/&P?D£",
+              "temporary": false
+            }
+          ],
+          "realmRoles": ["admin"]
+        },
+        {
+          "username": "djohnson",
+          "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0c1",
+          "enabled": true,
+          "firstName": "David",
+          "lastName": "Johnson",
+          "email": "djohnson@fifth-st.com",
+          "credentials": [
+            {
+              "type": "password",
+              "value": "gX:8O*J1cV9T",
+              "temporary": false
+            }
+          ],
+          "realmRoles": ["manager"]
+        },
+        {
+          "username": "smiller",
+          "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0c2",
+          "enabled": true,
+          "firstName": "Sarah",
+          "lastName": "Miller",
+          "email": "smiller@fifth-st.com",
+          "credentials": [
+            {
+              "type": "password",
+              "value": "!$ekE1336I95",
+              "temporary": false
+            }
+          ],
+          "realmRoles": ["staff"]
+        }
+      ]
+    },
+    {
+      "id": "5c4179f0-67fb-4db5-85ec-9c8671889a22",
+      "name": "green-dragon",
+      "enabled": true,
+      "domains": [
+        {
+          "name": "green-dragon.com",
+          "verified": true
+        }
+      ],
+      "members": [
+        {
+          "username": "lparker",
+          "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a99",
+          "enabled": true,
+          "firstName": "Liam",
+          "lastName": "Parker",
+          "email": "lparker@green-dragon.com",
+          "emailVerified": true,
+          "credentials": [
+            {
+              "type": "password",
+              "value": "9Q+,O@17GO7s",
+              "temporary": false
+            }
+          ],
+          "realmRoles": ["admin"]
+        },
+        {
+          "username": "emartin",
+          "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a98",
+          "enabled": true,
+          "firstName": "Emily",
+          "lastName": "Martin",
+          "email": "emartin@green-dragon.com",
+          "emailVerified": true,
+          "credentials": [
+            {
+              "type": "password",
+              "value": "5rT&v1!9Xz3A",
+              "temporary": false
+            }
+          ],
+          "realmRoles": ["manager"]
+        },
+        {
+          "username": "awilson",
+          "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a97",
+          "enabled": true,
+          "firstName": "Alex",
+          "lastName": "Wilson",
+          "email": "awilson@green-dragon.com",
+          "emailVerified": true,
+          "credentials": [
+            {
+              "type": "password",
+              "value": "!7sPq2&Xz8Bv",
+              "temporary": false
+            }
+          ],
+          "realmRoles": ["staff"]
+        }
+      ]
+    }
+  ]
+}

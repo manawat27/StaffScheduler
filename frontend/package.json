@@ -33,7 +33,7 @@
     "axios": "^1.10.0",
     "dayjs": "^1.11.13",
     "dotenv": "^16.5.0",
-    "keycloak-js": "^26.2.2",
+    "keycloak-js": "^26.2.3",
     "lodash": "^4.17.21",
     "react": "^19.1.0",
     "react-datepicker": "^8.4.0",
