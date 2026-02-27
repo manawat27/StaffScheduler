@@ -60,10 +60,10 @@ export default function SideBar() {
         className={({ isActive }) =>
           `py-3 px-4 rounded hover:bg-blue-700 transition mb-2 flex items-center ${collapsed ? "justify-center" : ""} ${isActive ? "bg-blue-700" : ""}`
         }
-        title="User Account"
+        title="My Profile"
       >
         <PersonIcon className="mr-2" />
-        {!collapsed && "User Account"}
+        {!collapsed && "My Profile"}
       </NavLink>
       <NavLink
         to="/"

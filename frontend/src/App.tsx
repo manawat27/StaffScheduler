@@ -6,6 +6,7 @@ import DashboardPage from "./pages/DashboardPage"
 import AvailabilityPage from "./pages/AvailabilityPage"
 import SchedulePage from "./pages/SchedulePage"
 import Layout from "./Layouts/Layout/Layout"
+import AccountPage from "./pages/AccountPage"
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
       <Route path="/" element={<Layout />}>
         <Route path="">
           <Route index element={<DashboardPage />} />
+          <Route path="account" element={<AccountPage />} />
           <Route path="availability" element={<AvailabilityPage />} />
           <Route path="schedule" element={<SchedulePage />} />
         </Route>

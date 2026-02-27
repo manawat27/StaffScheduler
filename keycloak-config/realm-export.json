@@ -86,6 +86,34 @@
             "addOrganizationAttributes": "true",
             "addOrganizationId": "true"
           }
+        },
+        {
+          "name": "phone",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.attribute": "phone",
+            "claim.name": "phone",
+            "jsonType.label": "String",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "userinfo.token.claim": "true"
+          }
+        },
+        {
+          "name": "dateOfBirth",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.attribute": "dateOfBirth",
+            "claim.name": "dateOfBirth",
+            "jsonType.label": "String",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "userinfo.token.claim": "true"
+          }
         }
       ],
       "defaultClientScopes": [
@@ -102,6 +130,20 @@
   "roles": {
     "realm": [{ "name": "admin" }, { "name": "manager" }, { "name": "staff" }]
   },
+  "components": {
+    "org.keycloak.userprofile.UserProfileProvider": [
+      {
+        "id": "d8f44de3-73dd-44f1-8191-1ee0fd0e8d7d",
+        "providerId": "declarative-user-profile",
+        "subComponents": {},
+        "config": {
+          "kc.user.profile.config": [
+            "{\"attributes\":[{\"name\":\"username\",\"displayName\":\"${username}\",\"validations\":{\"length\":{\"min\":3,\"max\":255},\"username-prohibited-characters\":{},\"up-username-not-idn-homograph\":{}},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"email\",\"displayName\":\"${email}\",\"validations\":{\"email\":{},\"length\":{\"max\":255}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"firstName\",\"displayName\":\"${firstName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"lastName\",\"displayName\":\"${lastName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"phone\",\"displayName\":\"Phone\",\"validations\":{},\"annotations\":{},\"permissions\":{\"view\":[],\"edit\":[\"admin\"]},\"multivalued\":false},{\"name\":\"dateOfBirth\",\"displayName\":\"Date of Birth\",\"validations\":{},\"annotations\":{},\"permissions\":{\"view\":[],\"edit\":[\"admin\"]},\"multivalued\":false}],\"groups\":[{\"name\":\"user-metadata\",\"displayHeader\":\"User metadata\",\"displayDescription\":\"Attributes, which refer to user metadata\"}] }"
+          ]
+        }
+      }
+    ]
+  },
   "users": [
     {
       "username": "jsmith",
@@ -110,6 +152,10 @@
       "firstName": "John",
       "lastName": "Smith",
       "email": "jsmith@fifth-st.com",
+      "attributes": {
+        "phone": "123-456-7890",
+        "dateOfBirth": "1985-06-15"
+      },
       "emailVerified": true,
       "credentials": [
         {
@@ -128,6 +174,10 @@
       "lastName": "Johnson",
       "email": "djohnson@fifth-st.com",
       "emailVerified": true,
+      "attributes": {
+        "phone": "234-567-8901",
+        "dateOfBirth": "1978-11-23"
+      },
       "credentials": [
         {
           "type": "password",
@@ -145,6 +195,10 @@
       "lastName": "Miller",
       "email": "smiller@fifth-st.com",
       "emailVerified": true,
+      "attributes": {
+        "phone": "345-678-9012",
+        "dateOfBirth": "1990-02-10"
+      },
       "credentials": [
         {
           "type": "password",
@@ -161,6 +215,10 @@
       "firstName": "Liam",
       "lastName": "Parker",
       "email": "lparker@green-dragon.com",
+      "attributes": {
+        "phone": "456-789-0123",
+        "dateOfBirth": "1982-04-22"
+      },
       "emailVerified": true,
       "credentials": [
         {
@@ -178,6 +236,10 @@
       "firstName": "Emily",
       "lastName": "Martin",
       "email": "emartin@green-dragon.com",
+      "attributes": {
+        "phone": "567-890-1234",
+        "dateOfBirth": "1988-09-30"
+      },
       "emailVerified": true,
       "credentials": [
         {
@@ -195,6 +257,10 @@
       "firstName": "Alex",
       "lastName": "Wilson",
       "email": "awilson@green-dragon.com",
+      "attributes": {
+        "phone": "678-901-2345",
+        "dateOfBirth": "1992-07-19"
+      },
       "emailVerified": true,
       "credentials": [
         {
@@ -225,6 +291,10 @@
           "firstName": "John",
           "lastName": "Smith",
           "email": "jsmith@fifth-st.com",
+          "attributes": {
+            "phone": "123-456-7890",
+            "dateOfBirth": "1985-06-15"
+          },
           "credentials": [
             {
               "type": "password",
@@ -241,6 +311,10 @@
           "firstName": "David",
           "lastName": "Johnson",
           "email": "djohnson@fifth-st.com",
+          "attributes": {
+            "phone": "234-567-8901",
+            "dateOfBirth": "1978-11-23"
+          },
           "credentials": [
             {
               "type": "password",
@@ -257,6 +331,10 @@
           "firstName": "Sarah",
           "lastName": "Miller",
           "email": "smiller@fifth-st.com",
+          "attributes": {
+            "phone": "345-678-9012",
+            "dateOfBirth": "1990-02-10"
+          },
           "credentials": [
             {
               "type": "password",
@@ -287,6 +365,10 @@
           "lastName": "Parker",
           "email": "lparker@green-dragon.com",
           "emailVerified": true,
+          "attributes": {
+            "phone": "456-789-0123",
+            "dateOfBirth": "1982-04-22"
+          },
           "credentials": [
             {
               "type": "password",
@@ -303,6 +385,10 @@
           "firstName": "Emily",
           "lastName": "Martin",
           "email": "emartin@green-dragon.com",
+          "attributes": {
+            "phone": "567-890-1234",
+            "dateOfBirth": "1988-09-30"
+          },
           "emailVerified": true,
           "credentials": [
             {
@@ -320,6 +406,10 @@
           "firstName": "Alex",
           "lastName": "Wilson",
           "email": "awilson@green-dragon.com",
+          "attributes": {
+            "phone": "678-901-2345",
+            "dateOfBirth": "1992-07-19"
+          },
           "emailVerified": true,
           "credentials": [
             {
