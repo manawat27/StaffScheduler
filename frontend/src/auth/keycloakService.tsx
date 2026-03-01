@@ -40,15 +40,35 @@ const isAuthenticated = (): boolean => {
 }
 
 const getUserInfo = (): {
+  uuid?: string
   firstName: string
   lastName: string
+  email: string
+  userName: string
+  phone: string | null
+  dateOfBirth: string | null
+  country: string | null
+  city: string | null
+  postalCode: string | null
+  organization: string | null
   roles: string[]
+  enabled: boolean
 } | null => {
   if (keycloak.authenticated && keycloak.tokenParsed) {
     return {
+      uuid: keycloak.tokenParsed.sub ?? undefined,
       firstName: keycloak.tokenParsed.given_name,
       lastName: keycloak.tokenParsed.family_name,
+      email: keycloak.tokenParsed.email,
+      userName: keycloak.tokenParsed.preferred_username,
+      phone: keycloak.tokenParsed.phone ?? null,
+      dateOfBirth: keycloak.tokenParsed.dateOfBirth ?? null,
+      country: keycloak.tokenParsed.country ?? null,
+      city: keycloak.tokenParsed.city ?? null,
+      postalCode: keycloak.tokenParsed.postalCode ?? null,
+      organization: keycloak.tokenParsed.organization ?? null,
       roles: keycloak.tokenParsed.realm_access?.roles || [],
+      enabled: keycloak.tokenParsed.enabled ?? true,
     }
   }
   return null

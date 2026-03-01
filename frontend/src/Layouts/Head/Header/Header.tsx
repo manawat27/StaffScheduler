@@ -1,12 +1,25 @@
-import React from "react";
+import { NavLink } from "react-router-dom"
+import Grid from "@mui/material/Grid"
+import PersonIcon from "@mui/icons-material/Person"
 
-const Header = () => {
+const Header = (props: { userName: string }) => {
   return (
-    <header className="w-full bg-blue-700 text-white py-4 px-6 shadow-md flex items-center justify-between">
-      <h1 className="text-2xl font-bold">Staff Scheduler</h1>
-      {/* Add nav or user menu here if needed */}
-    </header>
-  );
-};
+    <Grid
+      className="w-full bg-gradient-to-r from-blue-800 to-blue-500 text-white py-8 px-8 shadow flex items-center"
+      container
+      spacing={2}
+    >
+      <Grid size={8}>
+        <span className="text-xl font-bold tracking-wide">Staff Scheduler</span>
+      </Grid>
+      <Grid size={4} className="flex justify-end items-center">
+        <NavLink to="/account" className="text-white hover:underline">
+          <PersonIcon className="mr-2" />
+          {props.userName}
+        </NavLink>
+      </Grid>
+    </Grid>
+  )
+}
 
-export default Header;
+export default Header
