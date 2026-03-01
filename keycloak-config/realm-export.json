@@ -114,6 +114,48 @@
             "access.token.claim": "true",
             "userinfo.token.claim": "true"
           }
+        },
+        {
+          "name": "country",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.attribute": "country",
+            "claim.name": "country",
+            "jsonType.label": "String",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "userinfo.token.claim": "true"
+          }
+        },
+        {
+          "name": "city",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.attribute": "city",
+            "claim.name": "city",
+            "jsonType.label": "String",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "userinfo.token.claim": "true"
+          }
+        },
+        {
+          "name": "postalCode",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.attribute": "postalCode",
+            "claim.name": "postalCode",
+            "jsonType.label": "String",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "userinfo.token.claim": "true"
+          }
         }
       ],
       "defaultClientScopes": [
@@ -138,7 +180,7 @@
         "subComponents": {},
         "config": {
           "kc.user.profile.config": [
-            "{\"attributes\":[{\"name\":\"username\",\"displayName\":\"${username}\",\"validations\":{\"length\":{\"min\":3,\"max\":255},\"username-prohibited-characters\":{},\"up-username-not-idn-homograph\":{}},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"email\",\"displayName\":\"${email}\",\"validations\":{\"email\":{},\"length\":{\"max\":255}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"firstName\",\"displayName\":\"${firstName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"lastName\",\"displayName\":\"${lastName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"phone\",\"displayName\":\"Phone\",\"validations\":{},\"annotations\":{},\"permissions\":{\"view\":[],\"edit\":[\"admin\"]},\"multivalued\":false},{\"name\":\"dateOfBirth\",\"displayName\":\"Date of Birth\",\"validations\":{},\"annotations\":{},\"permissions\":{\"view\":[],\"edit\":[\"admin\"]},\"multivalued\":false}],\"groups\":[{\"name\":\"user-metadata\",\"displayHeader\":\"User metadata\",\"displayDescription\":\"Attributes, which refer to user metadata\"}] }"
+            "{\"attributes\":[{\"name\":\"username\",\"displayName\":\"${username}\",\"validations\":{\"length\":{\"min\":3,\"max\":255},\"username-prohibited-characters\":{},\"up-username-not-idn-homograph\":{}},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"email\",\"displayName\":\"${email}\",\"validations\":{\"email\":{},\"length\":{\"max\":255}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"firstName\",\"displayName\":\"${firstName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"lastName\",\"displayName\":\"${lastName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"phone\",\"displayName\":\"Phone\",\"validations\":{},\"annotations\":{},\"permissions\":{\"view\":[],\"edit\":[\"admin\"]},\"multivalued\":false},{\"name\":\"dateOfBirth\",\"displayName\":\"Date of Birth\",\"validations\":{},\"annotations\":{},\"permissions\":{\"view\":[],\"edit\":[\"admin\"]},\"multivalued\":false},{\"name\":\"country\",\"displayName\":\"Country\",\"validations\":{},\"annotations\":{},\"permissions\":{\"view\":[],\"edit\":[\"admin\"]},\"multivalued\":false},{\"name\":\"city\",\"displayName\":\"City\",\"validations\":{},\"annotations\":{},\"permissions\":{\"view\":[],\"edit\":[\"admin\"]},\"multivalued\":false},{\"name\":\"postalCode\",\"displayName\":\"Postal Code\",\"validations\":{},\"annotations\":{},\"permissions\":{\"view\":[],\"edit\":[\"admin\"]},\"multivalued\":false}],\"groups\":[{\"name\":\"user-metadata\",\"displayHeader\":\"User metadata\",\"displayDescription\":\"Attributes, which refer to user metadata\"}] }"
           ]
         }
       }
@@ -154,7 +196,10 @@
       "email": "jsmith@fifth-st.com",
       "attributes": {
         "phone": "123-456-7890",
-        "dateOfBirth": "1985-06-15"
+        "dateOfBirth": "1985-06-15",
+        "country": "United States",
+        "city": "New York",
+        "postalCode": "10001"
       },
       "emailVerified": true,
       "credentials": [
@@ -176,7 +221,10 @@
       "emailVerified": true,
       "attributes": {
         "phone": "234-567-8901",
-        "dateOfBirth": "1978-11-23"
+        "dateOfBirth": "1978-11-23",
+        "country": "United States",
+        "city": "Chicago",
+        "postalCode": "60601"
       },
       "credentials": [
         {
@@ -197,7 +245,10 @@
       "emailVerified": true,
       "attributes": {
         "phone": "345-678-9012",
-        "dateOfBirth": "1990-02-10"
+        "dateOfBirth": "1990-02-10",
+        "country": "United States",
+        "city": "Los Angeles",
+        "postalCode": "90001"
       },
       "credentials": [
         {
@@ -217,7 +268,10 @@
       "email": "lparker@green-dragon.com",
       "attributes": {
         "phone": "456-789-0123",
-        "dateOfBirth": "1982-04-22"
+        "dateOfBirth": "1982-04-22",
+        "country": "Canada",
+        "city": "Toronto",
+        "postalCode": "M5A 1A1"
       },
       "emailVerified": true,
       "credentials": [
@@ -238,7 +292,10 @@
       "email": "emartin@green-dragon.com",
       "attributes": {
         "phone": "567-890-1234",
-        "dateOfBirth": "1988-09-30"
+        "dateOfBirth": "1988-09-30",
+        "country": "Canada",
+        "city": "Vancouver",
+        "postalCode": "V6B 1A1"
       },
       "emailVerified": true,
       "credentials": [
@@ -259,7 +316,10 @@
       "email": "awilson@green-dragon.com",
       "attributes": {
         "phone": "678-901-2345",
-        "dateOfBirth": "1992-07-19"
+        "dateOfBirth": "1992-07-19",
+        "country": "Canada",
+        "city": "Montreal",
+        "postalCode": "H2X 1Y4"
       },
       "emailVerified": true,
       "credentials": [
@@ -293,7 +353,10 @@
           "email": "jsmith@fifth-st.com",
           "attributes": {
             "phone": "123-456-7890",
-            "dateOfBirth": "1985-06-15"
+            "dateOfBirth": "1985-06-15",
+            "country": "United States",
+            "city": "New York",
+            "postalCode": "10001"
           },
           "credentials": [
             {
@@ -313,7 +376,10 @@
           "email": "djohnson@fifth-st.com",
           "attributes": {
             "phone": "234-567-8901",
-            "dateOfBirth": "1978-11-23"
+            "dateOfBirth": "1978-11-23",
+            "country": "United States",
+            "city": "Chicago",
+            "postalCode": "60601"
           },
           "credentials": [
             {
@@ -333,7 +399,10 @@
           "email": "smiller@fifth-st.com",
           "attributes": {
             "phone": "345-678-9012",
-            "dateOfBirth": "1990-02-10"
+            "dateOfBirth": "1990-02-10",
+            "country": "United States",
+            "city": "Los Angeles",
+            "postalCode": "90001"
           },
           "credentials": [
             {
@@ -367,7 +436,10 @@
           "emailVerified": true,
           "attributes": {
             "phone": "456-789-0123",
-            "dateOfBirth": "1982-04-22"
+            "dateOfBirth": "1982-04-22",
+            "country": "Canada",
+            "city": "Toronto",
+            "postalCode": "M5A 1A1"
           },
           "credentials": [
             {
@@ -387,7 +459,10 @@
           "email": "emartin@green-dragon.com",
           "attributes": {
             "phone": "567-890-1234",
-            "dateOfBirth": "1988-09-30"
+            "dateOfBirth": "1988-09-30",
+            "country": "Canada",
+            "city": "Vancouver",
+            "postalCode": "V6B 1A1"
           },
           "emailVerified": true,
           "credentials": [
@@ -408,7 +483,10 @@
           "email": "awilson@green-dragon.com",
           "attributes": {
             "phone": "678-901-2345",
-            "dateOfBirth": "1992-07-19"
+            "dateOfBirth": "1992-07-19",
+            "country": "Canada",
+            "city": "Montreal",
+            "postalCode": "H2X 1Y4"
           },
           "emailVerified": true,
           "credentials": [

@@ -2,61 +2,82 @@ import { AppUserRole } from "./AppUserRole"
 import { AuditVariables } from "./AuditVariables"
 
 export class AppUser extends AuditVariables {
-  uuid: string
+  uuid?: string
+  firstName: string
+  lastName: string
   email: string
-  user_name: string
-  first_name: string
-  last_name: string
+  userName: string
   phone: string | null
+  dateOfBirth?: string | null
+  country: string | null
+  city: string | null
+  postalCode: string | null
   avatar?: string | Buffer | null
-  role: AppUserRole
+  roles: string[]
   enabled: boolean
 
   fullName?() {
-    return `${this.first_name} ${this.last_name}`
+    return `${this.firstName} ${this.lastName}`
   }
 
   constructor(
     uuid: string,
+    firstName: string,
+    lastName: string,
     email: string,
-    user_name: string,
-    first_name: string,
-    last_name: string,
+    userName: string,
     phone: string | null,
+    dateOfBirth: string | null,
+    country: string | null,
+    city: string | null,
+    postalCode: string | null,
     avatar: Buffer | null,
-    role: AppUserRole,
+    roles: string[],
     enabled: boolean,
   ) {
     super()
     this.uuid = uuid
+    this.firstName = firstName
+    this.lastName = lastName
     this.email = email
-    this.user_name = user_name
-    this.first_name = first_name
-    this.last_name = last_name
+    this.userName = userName
     this.phone = phone
+    this.dateOfBirth = dateOfBirth
+    this.country = country
+    this.city = city
+    this.postalCode = postalCode
     this.avatar = avatar
-    this.role = role
+    this.roles = roles
     this.enabled = enabled
   }
 }
 
 export interface CreateAppUser {
   uuid?: string
+  firstName?: string
+  lastName?: string
   email?: string
-  user_name?: string
-  first_name?: string
-  last_name?: string
+  userName?: string
   phone?: string | null
-  role?: string
+  dateOfBirth?: string | null
+  country?: string | null
+  city?: string | null
+  postalCode?: string | null
+  avatar?: string | Buffer | null
+  roles?: string[]
 }
 
 export interface UpdateAppUser {
-  uuid: string
+  uuid?: string
+  firstName: string
+  lastName: string
   email: string
-  user_name?: string
-  first_name: string
-  last_name: string
+  userName?: string
   phone: string | null
-  role: string
+  dateOfBirth?: string | null
+  country: string | null
+  city: string | null
+  postalCode: string | null
+  roles: string[]
   avatar?: string | Buffer | null
 }

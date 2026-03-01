@@ -30,7 +30,8 @@ services:
 
   flyway:
     image: flyway/flyway:10-alpine
-    container_name: sched_flyway2
+    container_name: sched_flyway
+    platform: linux/amd64 # use this for machine with Apple Silicon, remove for x86_64 machines
     depends_on:
       - postgres
     volumes:
@@ -55,7 +56,8 @@ services:
 
   flyway2:
     image: flyway/flyway:10-alpine
-    container_name: sched_flyway
+    platform: linux/amd64 # use this for machine with Apple Silicon, remove for x86_64 machines
+    container_name: sched_flyway2
     depends_on:
       - postgres
     volumes:
