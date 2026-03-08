@@ -7,6 +7,7 @@ import { AppUser } from "../types/AppUser"
 import Stack from "@mui/material/Stack"
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
+import EditUserInfo from "../components/EditUserInfo"
 
 export default function AccountPage() {
 
@@ -22,6 +23,8 @@ export default function AccountPage() {
   }));
   
   const [userInfo, setUserInfo] = useState<AppUser | null>(null)
+  const [isEditOpen, setIsEditOpen] = useState(false)
+  const [editField, setEditField] = useState<string | null>(null)
 
   useEffect(() => {
     const userInfo = KeycloakService.getUserInfo()
@@ -32,9 +35,25 @@ export default function AccountPage() {
     }
   }, [])
 
+  const editUserInfo = (field: string) => {
+    if (field =="edit-personal-info") {
+      setEditField("Personal Information")
+    } else if (field == "edit-address") {
+      setEditField("Address")
+    }
+    setIsEditOpen(true)
+  }
+
   return (
     <>
       <div className="p-6">
+        {isEditOpen && (
+          <EditUserInfo
+            editField={editField ?? ""}
+            userInfo={userInfo}
+            onClose={() => setIsEditOpen(false)}
+          />
+        )}
         <h1 className="text-3xl font-bold mb-4">My Profile</h1>
         <div className="mb-8 space-y-6">
           <div className="bg-white rounded-lg shadow p-6 flex flex-col min-w-[120px] min-h-[100px]">
@@ -56,7 +75,7 @@ export default function AccountPage() {
           <div className="bg-white rounded-lg shadow p-6 flex flex-col min-w-[120px] min-h-[100px]">
             <div className="flex items-center justify-between mb-2">
               <div className="text-lg font-semibold">Personal Information</div>
-              <Button variant="contained">
+              <Button id="edit-personal-info" variant="contained" onClick={() => editUserInfo("edit-personal-info")}>
                 Edit
                 <EditIcon />
               </Button>
@@ -104,9 +123,9 @@ export default function AccountPage() {
           <div className="bg-white rounded-lg shadow p-6 flex flex-col min-w-[120px] min-h-[100px]">
             <div className="flex items-center justify-between mb-2">
               <div className="text-lg font-semibold">Address</div>
-              <Button variant="contained">
+              <Button id="edit-address" variant="contained" onClick={() => editUserInfo("edit-address")}>
                 Edit
-                <EditIcon />
+                <EditIcon/>
               </Button>
             </div>
             <hr className="h-px w-full mb-4 bg-gray-400" />
