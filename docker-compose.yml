@@ -144,6 +144,8 @@ services:
     working_dir: "/app"
     volumes:
       - ./backend/data:/app/data
+    networks:
+      - app-network
 
   frontend:
     container_name: frontend
@@ -161,6 +163,8 @@ services:
     depends_on:
       backend:
         condition: service_healthy
+    networks:
+      - app-network
 
   caddy:
     container_name: caddy

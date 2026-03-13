@@ -6,6 +6,7 @@ import * as bodyParser from "body-parser";
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
+  app.setGlobalPrefix("api");
   app.use(bodyParser.json({ limit: "10mb" }));
   app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
@@ -19,6 +20,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup("api-docs", app, document);
 
-  await app.listen(3001, "0.0.0.0");
+  const port = parseInt(process.env.PORT, 10) || 3000;
+  await app.listen(port, "0.0.0.0");
 }
 bootstrap();
