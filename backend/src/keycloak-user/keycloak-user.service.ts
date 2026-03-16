@@ -102,6 +102,7 @@ export class KeycloakUserService {
         last_name: newUser.lastName,
         phone: createKeycloakUserDto.phone,
         role: createKeycloakUserDto.role,
+        enabled: true,
         who_created: authenticatedUser.id,
       });
       this.logger.log(`User created successfully: ${newUser.username}`);
@@ -127,7 +128,6 @@ export class KeycloakUserService {
     uuid: string,
     updateKeycloakUserDto: UpdateKeycloakUserDto & {
       role: AppUsersRoles;
-      phone: string;
     },
     who_updated: string,
   ) {
@@ -141,22 +141,73 @@ export class KeycloakUserService {
 
       if (!existingUser) {
         throw new NotFoundException(`User with ID ${uuid} not found`);
+      } else {
+        this.logger.log(`User found: ${existingUser.username}`);
       }
 
       // Prepare update data
       const updateData: Partial<KeycloakUserRepresentation> = {};
       if (updateKeycloakUserDto.user_name)
-        updateData.username = updateKeycloakUserDto.user_name;
+        updateData.username =
+          updateKeycloakUserDto.user_name != ""
+            ? updateKeycloakUserDto.user_name
+            : "";
       if (updateKeycloakUserDto.email)
-        updateData.email = updateKeycloakUserDto.email;
+        updateData.email =
+          updateKeycloakUserDto.email != "" ? updateKeycloakUserDto.email : "";
       if (updateKeycloakUserDto.first_name)
-        updateData.firstName = updateKeycloakUserDto.first_name;
+        updateData.firstName =
+          updateKeycloakUserDto.first_name != ""
+            ? updateKeycloakUserDto.first_name
+            : "";
       if (updateKeycloakUserDto.last_name)
-        updateData.lastName = updateKeycloakUserDto.last_name;
+        updateData.lastName =
+          updateKeycloakUserDto.last_name != ""
+            ? updateKeycloakUserDto.last_name
+            : "";
       if (updateKeycloakUserDto.enabled !== undefined)
         updateData.enabled = updateKeycloakUserDto.enabled;
       if (updateKeycloakUserDto.email_verified !== undefined)
         updateData.emailVerified = updateKeycloakUserDto.email_verified;
+      if (updateKeycloakUserDto.phone)
+        updateData.attributes = {
+          ...existingUser.attributes,
+          phone: [
+            updateKeycloakUserDto.phone != ""
+              ? updateKeycloakUserDto.phone
+              : "",
+          ],
+        };
+      if (updateKeycloakUserDto.date_of_birth)
+        updateData.attributes = {
+          ...existingUser.attributes,
+          date_of_birth: [String(updateKeycloakUserDto.date_of_birth)],
+        };
+      if (updateKeycloakUserDto.country)
+        updateData.attributes = {
+          ...existingUser.attributes,
+          country: [
+            updateKeycloakUserDto.country != ""
+              ? updateKeycloakUserDto.country
+              : "",
+          ],
+        };
+      if (updateKeycloakUserDto.city)
+        updateData.attributes = {
+          ...existingUser.attributes,
+          city: [
+            updateKeycloakUserDto.city != "" ? updateKeycloakUserDto.city : "",
+          ],
+        };
+      if (updateKeycloakUserDto.postal_code)
+        updateData.attributes = {
+          ...existingUser.attributes,
+          postal_code: [
+            updateKeycloakUserDto.postal_code != ""
+              ? updateKeycloakUserDto.postal_code
+              : "",
+          ],
+        };
 
       // Update the user in Keycloak
       await httpClient.put(`/users/${uuid}`, updateData);
@@ -184,16 +235,50 @@ export class KeycloakUserService {
         await httpClient.get(`/users/${uuid}`);
       const updatedUser = updatedUserResponse.data;
 
-      // Update the user in the database
-      await this.appUserService.update(updatedUser.id, {
-        email: updatedUser.email,
-        user_name: updatedUser.username,
-        first_name: updatedUser.firstName,
-        last_name: updatedUser.lastName,
-        phone: updateKeycloakUserDto.phone,
+      // Update the user in the database, or create if they don't exist
+      const existingDbUser = await this.appUserService.update(updatedUser.id, {
+        email: updatedUser.email != "" ? updatedUser.email : "",
+        user_name: updatedUser.username != "" ? updatedUser.username : "",
+        first_name: updatedUser.firstName != "" ? updatedUser.firstName : "",
+        last_name: updatedUser.lastName != "" ? updatedUser.lastName : "",
+        phone:
+          updateKeycloakUserDto.phone != "" ? updateKeycloakUserDto.phone : "",
+        date_of_birth: updateKeycloakUserDto.date_of_birth,
+        country:
+          updateKeycloakUserDto.country != ""
+            ? updateKeycloakUserDto.country
+            : "",
+        city:
+          updateKeycloakUserDto.city != "" ? updateKeycloakUserDto.city : "",
+        postal_code:
+          updateKeycloakUserDto.postal_code != ""
+            ? updateKeycloakUserDto.postal_code
+            : "",
         role: updateKeycloakUserDto.role,
+        enabled: updateKeycloakUserDto.enabled,
         who_updated: who_updated,
       });
+
+      if (!existingDbUser) {
+        await this.appUserService.create({
+          uuid: updatedUser.id,
+          email: updatedUser.email,
+          user_name: updatedUser.username,
+          first_name: updatedUser.firstName,
+          last_name: updatedUser.lastName,
+          phone: updateKeycloakUserDto.phone,
+          date_of_birth: updateKeycloakUserDto.date_of_birth,
+          country: updateKeycloakUserDto.country,
+          city: updateKeycloakUserDto.city,
+          postal_code: updateKeycloakUserDto.postal_code,
+          role: updateKeycloakUserDto.role,
+          enabled: updateKeycloakUserDto.enabled,
+          who_created: who_updated,
+        });
+        this.logger.log(
+          `User not found in DB, created: ${updatedUser.username}`,
+        );
+      }
 
       this.logger.log(`User updated successfully: ${updatedUser.username}`);
     } catch (error) {

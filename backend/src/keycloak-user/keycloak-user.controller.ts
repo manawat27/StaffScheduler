@@ -47,7 +47,6 @@ export class KeycloakUserController {
     @Body()
     updateKeycloakUserDto: UpdateKeycloakUserDto & {
       role: AppUsersRoles;
-      phone: string;
     },
   ) {
     return this.keycloakUserService.update(

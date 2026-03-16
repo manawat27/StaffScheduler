@@ -31,9 +31,24 @@ export class AppUsers {
   @Column({ nullable: true })
   phone: string;
 
+  @Column({ name: "date_of_birth", type: "date", nullable: true })
+  date_of_birth: Date;
+
+  @Column({ nullable: true })
+  country: string;
+
+  @Column({ nullable: true })
+  city: string;
+
+  @Column({ name: "postal_code", nullable: true })
+  postal_code: string;
+
   @ManyToOne(() => AppUsersRoles, (role) => role.roles)
   @JoinColumn({ name: "role", referencedColumnName: "code" })
   role: AppUsersRoles;
+
+  @Column({ nullable: false, default: true })
+  enabled: boolean;
 
   @Column({ name: "who_created", nullable: true })
   who_created: string;
@@ -46,7 +61,4 @@ export class AppUsers {
 
   @UpdateDateColumn({ name: "when_updated" })
   when_updated: Date;
-
-  @Column({ nullable: false, default: true })
-  enabled: boolean;
 }

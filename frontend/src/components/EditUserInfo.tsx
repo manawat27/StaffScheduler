@@ -14,7 +14,7 @@ import { updateUserInfo } from "../utils/api"
 interface EditUserInfoProps {
   editField: string
   userInfo: AppUser | null
-  onClose: () => void
+  onClose: (updatedFields?: Partial<AppUser>) => void
 }
 
 export default function EditUserInfo({
@@ -47,23 +47,29 @@ export default function EditUserInfo({
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       }
-      if (editField === "Personal Information") {
-        await updateUserInfo(userInfo.uuid, {
-          first_name: firstName,
-          last_name: lastName,
-          email,
-          phone,
-          role: { code: roles[0] ?? "" },
-        })
-      } else if (editField === "Address") {
-        await updateUserInfo(userInfo.uuid, {
-          country,
-          city,
-          postal_code: postalCode,
-        })
-      }
+      await updateUserInfo(userInfo.uuid, {
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        phone,
+        date_of_birth: dateOfBirth,
+        role: { code: roles[0] ?? "" },
+        country,
+        city,
+        postal_code: postalCode,
+      })
       toast.success("Changes saved successfully!")
-      onClose()
+      onClose({
+        firstName,
+        lastName,
+        email,
+        phone,
+        dateOfBirth,
+        roles,
+        country,
+        city,
+        postalCode,
+      })
     } catch (err) {
       console.error("Failed to save changes", err)
       if (axios.isAxiosError(err)) {
@@ -174,7 +180,37 @@ export default function EditUserInfo({
           </div>
         )}
         {editField === "Address" && (
-          <div className="text-sm text-gray-600">Country</div>
+          <div className="space-y-9">
+            <Grid container spacing={2} className="mb-7">
+              <Grid size={6}>
+                <label className="text-sm text-gray-600">Country</label>
+                <input
+                  type="text"
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                  className="w-full border rounded px-3 py-2 mt-1"
+                />
+              </Grid>
+              <Grid size={6}>
+                <label className="text-sm text-gray-600">City</label>
+                <input
+                  type="text"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  className="w-full border rounded px-3 py-2 mt-1"
+                />
+              </Grid>
+              <Grid size={6}>
+                <label className="text-sm text-gray-600">Postal Code</label>
+                <input
+                  type="text"
+                  value={postalCode}
+                  onChange={(e) => setPostalCode(e.target.value)}
+                  className="w-full border rounded px-3 py-2 mt-1"
+                />
+              </Grid>
+            </Grid>
+          </div>
         )}
         <Button variant="contained" onClick={handleSave} disabled={saving}>
           {saving ? "Saving..." : "Save Changes"}
