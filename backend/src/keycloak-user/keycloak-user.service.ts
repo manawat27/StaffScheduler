@@ -169,48 +169,50 @@ export class KeycloakUserService {
         updateData.enabled = updateKeycloakUserDto.enabled;
       if (updateKeycloakUserDto.email_verified !== undefined)
         updateData.emailVerified = updateKeycloakUserDto.email_verified;
+      updateData.attributes = { ...existingUser.attributes };
       if (updateKeycloakUserDto.phone)
-        updateData.attributes = {
-          ...existingUser.attributes,
-          phone: [
-            updateKeycloakUserDto.phone != ""
-              ? updateKeycloakUserDto.phone
-              : "",
-          ],
-        };
+        updateData.attributes.phone = [
+          updateKeycloakUserDto.phone != "" ? updateKeycloakUserDto.phone : "",
+        ];
       if (updateKeycloakUserDto.date_of_birth)
-        updateData.attributes = {
-          ...existingUser.attributes,
-          date_of_birth: [String(updateKeycloakUserDto.date_of_birth)],
-        };
+        updateData.attributes.dateOfBirth = [
+          String(updateKeycloakUserDto.date_of_birth),
+        ];
       if (updateKeycloakUserDto.country)
-        updateData.attributes = {
-          ...existingUser.attributes,
-          country: [
-            updateKeycloakUserDto.country != ""
-              ? updateKeycloakUserDto.country
-              : "",
-          ],
-        };
+        updateData.attributes.country = [
+          updateKeycloakUserDto.country != ""
+            ? updateKeycloakUserDto.country
+            : "",
+        ];
       if (updateKeycloakUserDto.city)
-        updateData.attributes = {
-          ...existingUser.attributes,
-          city: [
-            updateKeycloakUserDto.city != "" ? updateKeycloakUserDto.city : "",
-          ],
-        };
+        updateData.attributes.city = [
+          updateKeycloakUserDto.city != "" ? updateKeycloakUserDto.city : "",
+        ];
       if (updateKeycloakUserDto.postal_code)
-        updateData.attributes = {
-          ...existingUser.attributes,
-          postal_code: [
-            updateKeycloakUserDto.postal_code != ""
-              ? updateKeycloakUserDto.postal_code
-              : "",
-          ],
-        };
+        updateData.attributes.postalCode = [
+          updateKeycloakUserDto.postal_code != ""
+            ? updateKeycloakUserDto.postal_code
+            : "",
+        ];
+
+      this.logger.log(
+        `Updating user ${existingUser.username} with data:`,
+        updateData,
+      );
 
       // Update the user in Keycloak
-      await httpClient.put(`/users/${uuid}`, updateData);
+      try {
+        await httpClient.put(`/users/${uuid}`, {
+          ...existingUser,
+          ...updateData,
+        });
+        this.logger.log(`User updated in Keycloak: ${existingUser.username}`);
+      } catch (error) {
+        this.logger.error(`Failed to update user ${uuid} in Keycloak:`, error);
+        if (error.response?.status === 409) {
+          throw new BadRequestException("Username or email already exists");
+        }
+      }
 
       // Update the user's role
       const existingUserRoleMappings = await httpClient.get(
