@@ -6,16 +6,19 @@ import {
   InternalServerErrorException,
   forwardRef,
   Inject,
-} from '@nestjs/common';
-import { CreateKeycloakUserDto } from './dto/create-keycloak-user.dto';
-import { UpdateKeycloakUserDto } from './dto/update-keycloak-user.dto';
-import { AppUserService } from 'src/app-users/app-users.service';
-import { KeycloakConfig } from './keycloak.config';
-import { KeycloakUserRepresentation, KeycloakCreateUserResponse } from './interfaces/keycloak-types.interface';
-import { AxiosResponse } from 'axios';
-import { AuthenticatedUser } from '../auth/jwt.strategy';
-import { AppUsersRoles } from 'src/app-users-roles/entities/app-users-roles.entity';
-import { v4 as uuidv4 } from 'uuid';
+} from "@nestjs/common";
+import { CreateKeycloakUserDto } from "./dto/create-keycloak-user.dto";
+import { UpdateKeycloakUserDto } from "./dto/update-keycloak-user.dto";
+import { AppUserService } from "src/app-users/app-users.service";
+import { KeycloakConfig } from "./keycloak.config";
+import {
+  KeycloakUserRepresentation,
+  KeycloakCreateUserResponse,
+} from "./interfaces/keycloak-types.interface";
+import { AxiosResponse } from "axios";
+import { AuthenticatedUser } from "../auth/jwt.strategy";
+import { AppUsersRoles } from "src/app-users-roles/entities/app-users-roles.entity";
+import { v4 as uuidv4 } from "uuid";
 
 @Injectable()
 export class KeycloakUserService {
@@ -24,7 +27,7 @@ export class KeycloakUserService {
   constructor(
     @Inject(forwardRef(() => AppUserService))
     private readonly appUserService: AppUserService,
-    private readonly keycloakConfig: KeycloakConfig
+    private readonly keycloakConfig: KeycloakConfig,
   ) {}
 
   /**
@@ -34,7 +37,7 @@ export class KeycloakUserService {
    */
   async create(
     createKeycloakUserDto: CreateKeycloakUserDto & { role: any; phone: string },
-    authenticatedUser: AuthenticatedUser
+    authenticatedUser: AuthenticatedUser,
   ): Promise<void> {
     try {
       const httpClient = await this.keycloakConfig.getHttpClient();
@@ -48,34 +51,47 @@ export class KeycloakUserService {
       };
 
       // Create user in Keycloak
-      const createUserResponse: AxiosResponse<KeycloakCreateUserResponse> = await httpClient.post(
-        '/users',
-        userPayload
-      );
+      const createUserResponse: AxiosResponse<KeycloakCreateUserResponse> =
+        await httpClient.post("/users", userPayload);
 
       // Extract user ID from Location header
       const locationHeader = createUserResponse.headers.location;
-      const userId = locationHeader.split('/').pop();
+      const userId = locationHeader.split("/").pop();
 
       // Get roles from keycloak & assign specified realm role to user
-      const roleResponse = await httpClient.get(`/roles/${createKeycloakUserDto.role}`);
+      const roleResponse = await httpClient.get(
+        `/roles/${createKeycloakUserDto.role}`,
+      );
       const roleRepresentation = roleResponse.data;
-      await httpClient.post(`/users/${userId}/role-mappings/realm`, [roleRepresentation]);
+      await httpClient.post(`/users/${userId}/role-mappings/realm`, [
+        roleRepresentation,
+      ]);
 
       // Retrieve the created user with full details
-      const userResponse: AxiosResponse<KeycloakUserRepresentation> = await httpClient.get(`/users/${userId}`);
+      const userResponse: AxiosResponse<KeycloakUserRepresentation> =
+        await httpClient.get(`/users/${userId}`);
       const newUser = userResponse.data;
 
       // Send email to user to set their password
-      const response = await httpClient.put(`/users/${userId}/execute-actions-email`, ['UPDATE_PASSWORD'], {
-        params: {
-          client_id: process.env.KEYCLOAK_CLIENT_ID,
-          redirect_uri: process.env.ENVIRONMENT === 'local' ? 'http://localhost:3000' : process.env.FRONTEND_URL,
+      const response = await httpClient.put(
+        `/users/${userId}/execute-actions-email`,
+        ["UPDATE_PASSWORD"],
+        {
+          params: {
+            client_id: process.env.KEYCLOAK_CLIENT_ID,
+            redirect_uri:
+              process.env.ENVIRONMENT === "local"
+                ? "http://localhost:3000"
+                : process.env.FRONTEND_URL,
+          },
         },
-      });
+      );
 
       // Add the user to the same organization as the admin that is creating them
-      await httpClient.post(`/organizations/${authenticatedUser.organizationId}/members`, newUser.id);
+      await httpClient.post(
+        `/organizations/${authenticatedUser.organizationId}/members`,
+        newUser.id,
+      );
 
       // Create the user in the database
       await this.appUserService.create({
@@ -86,15 +102,20 @@ export class KeycloakUserService {
         last_name: newUser.lastName,
         phone: createKeycloakUserDto.phone,
         role: createKeycloakUserDto.role,
+        enabled: true,
         who_created: authenticatedUser.id,
       });
       this.logger.log(`User created successfully: ${newUser.username}`);
     } catch (error) {
-      this.logger.error('Failed to create user:', error);
+      this.logger.error("Failed to create user:", error);
       if (error.response?.status === 409) {
-        throw new BadRequestException('A user with this username or email already exists');
+        throw new BadRequestException(
+          "A user with this username or email already exists",
+        );
       }
-      throw new InternalServerErrorException('Failed to create user in Keycloak');
+      throw new InternalServerErrorException(
+        "Failed to create user in Keycloak",
+      );
     }
   }
 
@@ -105,57 +126,161 @@ export class KeycloakUserService {
    */
   async update(
     uuid: string,
-    updateKeycloakUserDto: UpdateKeycloakUserDto & { role: AppUsersRoles; phone: string },
-    who_updated: string
+    updateKeycloakUserDto: UpdateKeycloakUserDto & {
+      role: AppUsersRoles;
+    },
+    who_updated: string,
   ) {
     try {
       const httpClient = await this.keycloakConfig.getHttpClient();
 
       // Check if the user exists
-      const existingUserResponse: AxiosResponse<KeycloakUserRepresentation> = await httpClient.get(`/users/${uuid}`);
+      const existingUserResponse: AxiosResponse<KeycloakUserRepresentation> =
+        await httpClient.get(`/users/${uuid}`);
       const existingUser = existingUserResponse.data;
 
       if (!existingUser) {
         throw new NotFoundException(`User with ID ${uuid} not found`);
+      } else {
+        this.logger.log(`User found: ${existingUser.username}`);
       }
 
       // Prepare update data
       const updateData: Partial<KeycloakUserRepresentation> = {};
-      if (updateKeycloakUserDto.user_name) updateData.username = updateKeycloakUserDto.user_name;
-      if (updateKeycloakUserDto.email) updateData.email = updateKeycloakUserDto.email;
-      if (updateKeycloakUserDto.first_name) updateData.firstName = updateKeycloakUserDto.first_name;
-      if (updateKeycloakUserDto.last_name) updateData.lastName = updateKeycloakUserDto.last_name;
-      if (updateKeycloakUserDto.enabled !== undefined) updateData.enabled = updateKeycloakUserDto.enabled;
+      if (updateKeycloakUserDto.user_name)
+        updateData.username =
+          updateKeycloakUserDto.user_name != ""
+            ? updateKeycloakUserDto.user_name
+            : "";
+      if (updateKeycloakUserDto.email)
+        updateData.email =
+          updateKeycloakUserDto.email != "" ? updateKeycloakUserDto.email : "";
+      if (updateKeycloakUserDto.first_name)
+        updateData.firstName =
+          updateKeycloakUserDto.first_name != ""
+            ? updateKeycloakUserDto.first_name
+            : "";
+      if (updateKeycloakUserDto.last_name)
+        updateData.lastName =
+          updateKeycloakUserDto.last_name != ""
+            ? updateKeycloakUserDto.last_name
+            : "";
+      if (updateKeycloakUserDto.enabled !== undefined)
+        updateData.enabled = updateKeycloakUserDto.enabled;
       if (updateKeycloakUserDto.email_verified !== undefined)
         updateData.emailVerified = updateKeycloakUserDto.email_verified;
+      updateData.attributes = { ...existingUser.attributes };
+      if (updateKeycloakUserDto.phone)
+        updateData.attributes.phone = [
+          updateKeycloakUserDto.phone != "" ? updateKeycloakUserDto.phone : "",
+        ];
+      if (updateKeycloakUserDto.date_of_birth)
+        updateData.attributes.dateOfBirth = [
+          String(updateKeycloakUserDto.date_of_birth),
+        ];
+      if (updateKeycloakUserDto.country)
+        updateData.attributes.country = [
+          updateKeycloakUserDto.country != ""
+            ? updateKeycloakUserDto.country
+            : "",
+        ];
+      if (updateKeycloakUserDto.city)
+        updateData.attributes.city = [
+          updateKeycloakUserDto.city != "" ? updateKeycloakUserDto.city : "",
+        ];
+      if (updateKeycloakUserDto.postal_code)
+        updateData.attributes.postalCode = [
+          updateKeycloakUserDto.postal_code != ""
+            ? updateKeycloakUserDto.postal_code
+            : "",
+        ];
+
+      this.logger.log(
+        `Updating user ${existingUser.username} with data:`,
+        updateData,
+      );
 
       // Update the user in Keycloak
-      await httpClient.put(`/users/${uuid}`, updateData);
+      try {
+        await httpClient.put(`/users/${uuid}`, {
+          ...existingUser,
+          ...updateData,
+        });
+        this.logger.log(`User updated in Keycloak: ${existingUser.username}`);
+      } catch (error) {
+        this.logger.error(`Failed to update user ${uuid} in Keycloak:`, error);
+        if (error.response?.status === 409) {
+          throw new BadRequestException("Username or email already exists");
+        }
+      }
 
       // Update the user's role
-      const existingUserRoleMappings = await httpClient.get(`/users/${uuid}/role-mappings`);
+      const existingUserRoleMappings = await httpClient.get(
+        `/users/${uuid}/role-mappings`,
+      );
       const existingUserRole = existingUserRoleMappings.data.realmMappings[0];
-      const roleResponse = await httpClient.get(`/roles/${updateKeycloakUserDto.role.code}`);
+      const roleResponse = await httpClient.get(
+        `/roles/${updateKeycloakUserDto.role.code}`,
+      );
       const roleRepresentation = roleResponse.data;
       if (existingUserRole.id !== roleRepresentation.id) {
-        await httpClient.delete(`/users/${uuid}/role-mappings/realm`, { data: [existingUserRole] });
-        await httpClient.post(`/users/${uuid}/role-mappings/realm`, [roleRepresentation]);
+        await httpClient.delete(`/users/${uuid}/role-mappings/realm`, {
+          data: [existingUserRole],
+        });
+        await httpClient.post(`/users/${uuid}/role-mappings/realm`, [
+          roleRepresentation,
+        ]);
       }
 
       // Return updated user
-      const updatedUserResponse: AxiosResponse<KeycloakUserRepresentation> = await httpClient.get(`/users/${uuid}`);
+      const updatedUserResponse: AxiosResponse<KeycloakUserRepresentation> =
+        await httpClient.get(`/users/${uuid}`);
       const updatedUser = updatedUserResponse.data;
 
-      // Update the user in the database
-      await this.appUserService.update(updatedUser.id, {
-        email: updatedUser.email,
-        user_name: updatedUser.username,
-        first_name: updatedUser.firstName,
-        last_name: updatedUser.lastName,
-        phone: updateKeycloakUserDto.phone,
+      // Update the user in the database, or create if they don't exist
+      const existingDbUser = await this.appUserService.update(updatedUser.id, {
+        email: updatedUser.email != "" ? updatedUser.email : "",
+        user_name: updatedUser.username != "" ? updatedUser.username : "",
+        first_name: updatedUser.firstName != "" ? updatedUser.firstName : "",
+        last_name: updatedUser.lastName != "" ? updatedUser.lastName : "",
+        phone:
+          updateKeycloakUserDto.phone != "" ? updateKeycloakUserDto.phone : "",
+        date_of_birth: updateKeycloakUserDto.date_of_birth,
+        country:
+          updateKeycloakUserDto.country != ""
+            ? updateKeycloakUserDto.country
+            : "",
+        city:
+          updateKeycloakUserDto.city != "" ? updateKeycloakUserDto.city : "",
+        postal_code:
+          updateKeycloakUserDto.postal_code != ""
+            ? updateKeycloakUserDto.postal_code
+            : "",
         role: updateKeycloakUserDto.role,
+        enabled: updateKeycloakUserDto.enabled,
         who_updated: who_updated,
       });
+
+      if (!existingDbUser) {
+        await this.appUserService.create({
+          uuid: updatedUser.id,
+          email: updatedUser.email,
+          user_name: updatedUser.username,
+          first_name: updatedUser.firstName,
+          last_name: updatedUser.lastName,
+          phone: updateKeycloakUserDto.phone,
+          date_of_birth: updateKeycloakUserDto.date_of_birth,
+          country: updateKeycloakUserDto.country,
+          city: updateKeycloakUserDto.city,
+          postal_code: updateKeycloakUserDto.postal_code,
+          role: updateKeycloakUserDto.role,
+          enabled: updateKeycloakUserDto.enabled,
+          who_created: who_updated,
+        });
+        this.logger.log(
+          `User not found in DB, created: ${updatedUser.username}`,
+        );
+      }
 
       this.logger.log(`User updated successfully: ${updatedUser.username}`);
     } catch (error) {
@@ -164,9 +289,9 @@ export class KeycloakUserService {
       }
       this.logger.error(`Failed to update user ${uuid}:`, error);
       if (error.response?.status === 409) {
-        throw new BadRequestException('Username or email already exists');
+        throw new BadRequestException("Username or email already exists");
       }
-      throw new InternalServerErrorException('Failed to update user');
+      throw new InternalServerErrorException("Failed to update user");
     }
   }
 
@@ -180,7 +305,8 @@ export class KeycloakUserService {
       const httpClient = await this.keycloakConfig.getHttpClient();
 
       // Check if the user exists
-      const existingUserResponse: AxiosResponse<KeycloakUserRepresentation> = await httpClient.get(`/users/${uuid}`);
+      const existingUserResponse: AxiosResponse<KeycloakUserRepresentation> =
+        await httpClient.get(`/users/${uuid}`);
       const existingUser = existingUserResponse.data;
       if (!existingUser) {
         throw new NotFoundException(`User with ID ${uuid} not found`);
@@ -192,13 +318,13 @@ export class KeycloakUserService {
       await this.appUserService.delete(uuid);
 
       this.logger.log(`User deleted successfully: ${existingUser.username}`);
-      return { message: 'User deleted successfully', deletedUserId: uuid };
+      return { message: "User deleted successfully", deletedUserId: uuid };
     } catch (error) {
       if (error.response?.status === 404) {
         throw new NotFoundException(`User with ID ${uuid} not found`);
       }
       this.logger.error(`Failed to delete user ${uuid}:`, error);
-      throw new InternalServerErrorException('Failed to delete user');
+      throw new InternalServerErrorException("Failed to delete user");
     }
   }
 
@@ -210,12 +336,21 @@ export class KeycloakUserService {
   async signupOrg(name: string) {
     try {
       // make simple unique org name in keycloak, this name isn't used anywhere else
-      const orgName = name.replaceAll(' ', '').slice(0, 5).toLowerCase() + uuidv4().replaceAll('-', '').slice(0, 10);
+      const orgName =
+        name.replaceAll(" ", "").slice(0, 5).toLowerCase() +
+        uuidv4().replaceAll("-", "").slice(0, 10);
       const httpClient = await this.keycloakConfig.getHttpClient();
-      await httpClient.post(`/organizations/`, { name: orgName, domains: [{ name: orgName }] });
-      const orgSearch = await httpClient.get(`/organizations?search=${encodeURIComponent(orgName)}`);
+      await httpClient.post(`/organizations/`, {
+        name: orgName,
+        domains: [{ name: orgName }],
+      });
+      const orgSearch = await httpClient.get(
+        `/organizations?search=${encodeURIComponent(orgName)}`,
+      );
       const organizations = orgSearch.data;
-      const organization = organizations.find((org: any) => org.name === orgName);
+      const organization = organizations.find(
+        (org: any) => org.name === orgName,
+      );
       return organization.id;
     } catch (error) {
       console.error(error);
@@ -233,7 +368,9 @@ export class KeycloakUserService {
       const httpClient = await this.keycloakConfig.getHttpClient();
       await httpClient.post(`/organizations/${orgId}/members`, user.id);
       const role = await httpClient.get(`/roles/admin`);
-      await httpClient.post(`/users/${user.id}/role-mappings/realm`, [role.data]);
+      await httpClient.post(`/users/${user.id}/role-mappings/realm`, [
+        role.data,
+      ]);
     } catch (error) {
       console.error(error);
     }

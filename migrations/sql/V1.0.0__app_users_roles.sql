@@ -51,7 +51,12 @@ CREATE TABLE
     first_name VARCHAR NOT NULL,
     last_name VARCHAR NOT NULL,
     phone VARCHAR,
+    date_of_birth DATE,
+    country VARCHAR(100),
+    city VARCHAR(100),
+    postal_code VARCHAR(20),
     role VARCHAR(50) NOT NULL, -- role as defined in app_users_roles table 
+    enabled BOOLEAN DEFAULT TRUE,
     who_created VARCHAR(100),
     when_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     who_updated VARCHAR(100),
@@ -74,6 +79,8 @@ COMMENT ON COLUMN app_users.last_name IS 'Last name of the user';
 COMMENT ON COLUMN app_users.phone IS 'Optional phone number';
 
 COMMENT ON COLUMN app_users.role IS 'Role from app_users_roles table (e.g., admin, staff, manager)';
+
+COMMENT ON COLUMN app_users.enabled IS 'Indicates whether the user is enabled or disabled';
 
 COMMENT ON COLUMN app_users.who_created IS 'Username of the user who created this record';
 

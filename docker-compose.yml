@@ -40,7 +40,7 @@ services:
       -url=jdbc:postgresql://postgres:5432/scheduler
       -user=schdusr
       -password=password
-      -schemas=org_fifth_st
+      -schemas=org_5c4179f0-67fb-4db5-85ec-9c8671889a11
       -locations=filesystem:/flyway/sql
       -createSchemas=true
       -connectRetries=10
@@ -66,7 +66,7 @@ services:
       -url=jdbc:postgresql://postgres:5432/scheduler
       -user=schdusr
       -password=password
-      -schemas=org_green_dragon
+      -schemas=org_5c4179f0-67fb-4db5-85ec-9c8671889a22
       -locations=filesystem:/flyway/sql
       -createSchemas=true
       -connectRetries=10
@@ -144,6 +144,8 @@ services:
     working_dir: "/app"
     volumes:
       - ./backend/data:/app/data
+    networks:
+      - app-network
 
   frontend:
     container_name: frontend
@@ -161,6 +163,8 @@ services:
     depends_on:
       backend:
         condition: service_healthy
+    networks:
+      - app-network
 
   caddy:
     container_name: caddy

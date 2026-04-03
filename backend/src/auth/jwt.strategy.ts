@@ -38,14 +38,16 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     private configService: ConfigService,
     private readonly accountService: AccountService,
   ) {
-    const keycloakClientId = process.env.KEYCLOAK_CLIENT_ID || "buildops";
+    const keycloakClientId =
+      process.env.KEYCLOAK_CLIENT_ID || "staff-scheduler";
+    const keycloakRealm = process.env.KEYCLOAK_REALM || "staff-scheduler";
     const jwtIssuer =
       process.env.ENVIRONMENT === "local"
-        ? "http://localhost:8080/realms/buildops"
+        ? `http://localhost:8080/realms/${keycloakRealm}`
         : process.env.JWT_ISSUER;
     const jwksUri =
       process.env.ENVIRONMENT === "local"
-        ? "http://localhost:8080/realms/buildops/protocol/openid-connect/certs"
+        ? `http://localhost:8080/realms/${keycloakRealm}/protocol/openid-connect/certs`
         : process.env.JWKS_URI;
 
     super({
@@ -56,7 +58,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         jwksUri: jwksUri,
       }),
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      audience: keycloakClientId,
       issuer: jwtIssuer,
       algorithms: ["RS256"],
     });
