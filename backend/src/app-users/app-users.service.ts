@@ -75,7 +75,6 @@ export class AppUserService {
 
   findAll() {
     return this.appUserRepository.find({
-      relations: ["role", "buildings"],
       order: { user_name: "ASC", when_created: "DESC" },
     });
   }

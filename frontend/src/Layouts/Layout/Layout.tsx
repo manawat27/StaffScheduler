@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom"
 
 import SideBar from "../SideBar/SideBar"
 import { useState, useEffect } from "react"
-import KeycloakService from "@/auth/keycloakService"
+import KeycloakService from "../../auth/keycloakService"
 
 export default function Layout() {
   const [userName, setUserName] = useState("")
