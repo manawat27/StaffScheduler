@@ -5,7 +5,7 @@ import { AppService } from "./app.service";
 import { AppController } from "./app.controller";
 import { MetricsController } from "./metrics.controller";
 import { TerminusModule } from "@nestjs/terminus";
-import { ScheduleModule } from "@nestjs/schedule";
+import { ScheduleModule as NestScheduleModule } from "@nestjs/schedule";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { KeycloakStartupService } from "./keycloak-user/keycloak-startup.service";
 import ormconfig from "src/ormconfig";
@@ -17,6 +17,13 @@ import { AccountModule } from "./account/account.module";
 import { OrganizationModule } from "./organization/organization.module";
 import { AccountPlanTypeModule } from "./account-plan-type/account-plan-type.module";
 import { AuthModule } from "./auth/auth.module";
+import { ShiftTypeModule } from "./shift-type/shift-type.module";
+import { PositionModule } from "./position/position.module";
+import { StaffProfileModule } from "./staff-profile/staff-profile.module";
+import { AvailabilityModule } from "./availability/availability.module";
+import { TimeOffModule } from "./time-off/time-off.module";
+import { ScheduleModule as ShiftScheduleModule } from "./schedule/schedule.module";
+import { ShiftPoolModule } from "./shift-pool/shift-pool.module";
 
 @Module({
   imports: [
@@ -24,7 +31,7 @@ import { AuthModule } from "./auth/auth.module";
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    ScheduleModule.forRoot(),
+    NestScheduleModule.forRoot(),
     TerminusModule,
     AppUserModule,
     AppUsersRolesModule,
@@ -34,6 +41,13 @@ import { AuthModule } from "./auth/auth.module";
     KeycloakUserModule,
     AccountModule,
     AccountPlanTypeModule,
+    ShiftTypeModule,
+    PositionModule,
+    StaffProfileModule,
+    AvailabilityModule,
+    TimeOffModule,
+    ShiftScheduleModule,
+    ShiftPoolModule,
   ],
   controllers: [AppController, MetricsController],
   providers: [AppService],
