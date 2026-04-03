@@ -8,6 +8,7 @@ import KeycloakService from "@/auth/keycloakService"
 
 export default function Layout() {
   const [userName, setUserName] = useState("")
+  const [userRole, setUserRole] = useState("")
 
   useEffect(() => {
     document.title = "Staff Scheduler"
@@ -16,11 +17,13 @@ export default function Layout() {
       ", " +
       KeycloakService.getUserInfo()?.firstName
     setUserName(userName || "")
+    const userRole = KeycloakService.getUserInfo()?.roles[0]
+    setUserRole(userRole || "")
   }, [])
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header */}
-      <Header userName={userName} />
+      <Header userName={userName} userRole={userRole} />
       {/* Main Content with Sidebar */}
       <div className="flex flex-1">
         {/* Sidebar */}

@@ -8,11 +8,17 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 import CorporateFareIcon from "@mui/icons-material/CorporateFare"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { UserCircleIcon } from "@hugeicons/core-free-icons"
+import EventAvailableIcon from "@mui/icons-material/EventAvailable"
+import PeopleIcon from "@mui/icons-material/People"
+import BuildIcon from "@mui/icons-material/Build"
+import SettingsIcon from "@mui/icons-material/Settings"
+import AssignmentIcon from "@mui/icons-material/Assignment"
 import LogoutIcon from "@mui/icons-material/Logout"
 import KeycloakService from "@/auth/keycloakService"
 
 export default function SideBar() {
   const [isAdmin, setIsAdmin] = useState(false)
+  const [isManager, setIsManager] = useState(false)
   const [collapsed, setCollapsed] = useState(() => {
     const stored = localStorage.getItem("sidebar-collapsed")
     return stored === "true"
@@ -21,8 +27,11 @@ export default function SideBar() {
   useEffect(() => {
     const userRole = KeycloakService.getUserInfo()?.roles || []
     if (userRole.includes("admin")) {
-      // set isAdmin to true if user has admin role
       setIsAdmin(true)
+      setIsManager(true)
+    }
+    if (userRole.includes("manager")) {
+      setIsManager(true)
     }
   }, [])
 
@@ -86,6 +95,16 @@ export default function SideBar() {
         {!collapsed && "Shift Pool"}
       </NavLink>
       <NavLink
+        to="/availability"
+        className={({ isActive }) =>
+          `py-3 px-4 rounded hover:bg-blue-700 transition mb-2 flex items-center ${collapsed ? "justify-center" : ""} ${isActive ? "bg-blue-700" : ""}`
+        }
+        title="Availability"
+      >
+        <EventAvailableIcon className="mr-2" />
+        {!collapsed && "Availability"}
+      </NavLink>
+      <NavLink
         to="/schedule"
         className={({ isActive }) =>
           `py-3 px-4 rounded hover:bg-blue-700 transition mb-2 flex items-center ${collapsed ? "justify-center" : ""} ${isActive ? "bg-blue-700" : ""}`
@@ -95,6 +114,56 @@ export default function SideBar() {
         <CalendarMonthIcon className="mr-2" />
         {!collapsed && "Schedule"}
       </NavLink>
+
+      {isManager && (
+        <>
+          {!collapsed && (
+            <div className="mt-4 mb-2 px-4 text-xs text-gray-400 uppercase tracking-wider">
+              Management
+            </div>
+          )}
+          <NavLink
+            to="/admin/staff"
+            className={({ isActive }) =>
+              `py-3 px-4 rounded hover:bg-blue-700 transition mb-2 flex items-center ${collapsed ? "justify-center" : ""} ${isActive ? "bg-blue-700" : ""}`
+            }
+            title="Staff Management"
+          >
+            <PeopleIcon className="mr-2" />
+            {!collapsed && "Staff Management"}
+          </NavLink>
+          <NavLink
+            to="/admin/schedules"
+            className={({ isActive }) =>
+              `py-3 px-4 rounded hover:bg-blue-700 transition mb-2 flex items-center ${collapsed ? "justify-center" : ""} ${isActive ? "bg-blue-700" : ""}`
+            }
+            title="Schedule Builder"
+          >
+            <BuildIcon className="mr-2" />
+            {!collapsed && "Schedule Builder"}
+          </NavLink>
+          <NavLink
+            to="/admin/shift-pool"
+            className={({ isActive }) =>
+              `py-3 px-4 rounded hover:bg-blue-700 transition mb-2 flex items-center ${collapsed ? "justify-center" : ""} ${isActive ? "bg-blue-700" : ""}`
+            }
+            title="Shift Pool Mgmt"
+          >
+            <AssignmentIcon className="mr-2" />
+            {!collapsed && "Shift Pool Mgmt"}
+          </NavLink>
+          <NavLink
+            to="/admin/settings"
+            className={({ isActive }) =>
+              `py-3 px-4 rounded hover:bg-blue-700 transition mb-2 flex items-center ${collapsed ? "justify-center" : ""} ${isActive ? "bg-blue-700" : ""}`
+            }
+            title="Settings"
+          >
+            <SettingsIcon className="mr-2" />
+            {!collapsed && "Settings"}
+          </NavLink>
+        </>
+      )}
 
       {isAdmin && (
         <NavLink

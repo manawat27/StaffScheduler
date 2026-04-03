@@ -7,6 +7,11 @@ import KeycloakService from "./auth/keycloakService"
 import DashboardPage from "./pages/DashboardPage"
 import AvailabilityPage from "./pages/AvailabilityPage"
 import SchedulePage from "./pages/SchedulePage"
+import ShiftPoolPage from "./pages/ShiftPoolPage"
+import StaffManagementPage from "./pages/admin/StaffManagementPage"
+import ScheduleBuilderPage from "./pages/admin/ScheduleBuilderPage"
+import ShiftPoolAdminPage from "./pages/admin/ShiftPoolAdminPage"
+import SettingsPage from "./pages/admin/SettingsPage"
 import Layout from "./Layouts/Layout/Layout"
 import AccountPage from "./pages/AccountPage"
 
@@ -21,6 +26,11 @@ export default function App() {
             <Route path="account" element={<AccountPage />} />
             <Route path="availability" element={<AvailabilityPage />} />
             <Route path="schedule" element={<SchedulePage />} />
+            <Route path="shift-pool" element={<ShiftPoolPage />} />
+            <Route path="admin/staff" element={<StaffManagementPage />} />
+            <Route path="admin/schedules" element={<ScheduleBuilderPage />} />
+            <Route path="admin/shift-pool" element={<ShiftPoolAdminPage />} />
+            <Route path="admin/settings" element={<SettingsPage />} />
           </Route>
         </Route>
         {/* Fallback route */}
