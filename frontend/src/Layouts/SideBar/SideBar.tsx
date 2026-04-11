@@ -6,13 +6,22 @@ import PersonIcon from "@mui/icons-material/Person"
 import DashboardIcon from "@mui/icons-material/Dashboard"
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 import CorporateFareIcon from "@mui/icons-material/CorporateFare"
-import { HugeiconsIcon } from "@hugeicons/react"
-import { UserCircleIcon } from "@hugeicons/core-free-icons"
+import EventAvailableIcon from "@mui/icons-material/EventAvailable"
+import PeopleIcon from "@mui/icons-material/People"
+import BuildIcon from "@mui/icons-material/Build"
+import SettingsIcon from "@mui/icons-material/Settings"
+import AssignmentIcon from "@mui/icons-material/Assignment"
 import LogoutIcon from "@mui/icons-material/Logout"
 import KeycloakService from "@/auth/keycloakService"
 
+const navLinkClass = (isActive: boolean, collapsed: boolean) =>
+  `py-2.5 px-3 rounded-xl transition-all duration-200 flex items-center gap-3 text-sm font-medium
+  ${collapsed ? "justify-center px-2" : ""}
+  ${isActive ? "bg-blue-600 text-white shadow-md shadow-blue-600/30" : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"}`
+
 export default function SideBar() {
   const [isAdmin, setIsAdmin] = useState(false)
+  const [isManager, setIsManager] = useState(false)
   const [collapsed, setCollapsed] = useState(() => {
     const stored = localStorage.getItem("sidebar-collapsed")
     return stored === "true"
@@ -21,103 +30,169 @@ export default function SideBar() {
   useEffect(() => {
     const userRole = KeycloakService.getUserInfo()?.roles || []
     if (userRole.includes("admin")) {
-      // set isAdmin to true if user has admin role
       setIsAdmin(true)
+      setIsManager(true)
+    }
+    if (userRole.includes("manager")) {
+      setIsManager(true)
     }
   }, [])
 
   useEffect(() => {
     localStorage.setItem("sidebar-collapsed", collapsed.toString())
   }, [collapsed])
+
+  const firstName = KeycloakService.getUserInfo()?.firstName || ""
+
   return (
     <nav
-      className={`flex flex-col min-h-screen bg-gray-800 text-white py-8 px-4 shadow-lg transition-all duration-300 ${collapsed ? "w-20" : "w-64"}`}
+      className={`flex flex-col min-h-screen bg-white border-r border-slate-200 py-6 px-3 transition-all duration-300 ${collapsed ? "w-[72px]" : "w-64"}`}
     >
-      <button
-        className="mb-6 self-end bg-gray-700 hover:bg-gray-600 rounded p-2 focus:outline-none"
-        onClick={() => setCollapsed((c) => !c)}
-        aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-      >
-        <a>
-          <MenuIcon />
-        </a>
-      </button>
-      <div
-        className={`mb-8 text-2xl font-bold flex items-center justify-center ${collapsed ? "hidden" : ""}`}
-      >
-        <HugeiconsIcon
-          icon={UserCircleIcon}
-          size={90}
-          color="currentColor"
-          strokeWidth={1.5}
-        />
-        <span className="ml-2">
-          Hi, {KeycloakService.getUserInfo()?.firstName}!
-        </span>
-      </div>
-      <NavLink
-        to="/account"
-        className={({ isActive }) =>
-          `py-3 px-4 rounded hover:bg-blue-700 transition mb-2 flex items-center ${collapsed ? "justify-center" : ""} ${isActive ? "bg-blue-700" : ""}`
-        }
-        title="My Profile"
-      >
-        <PersonIcon className="mr-2" />
-        {!collapsed && "My Profile"}
-      </NavLink>
-      <NavLink
-        to="/"
-        className={({ isActive }) =>
-          `py-3 px-4 rounded hover:bg-blue-700 transition mb-2 flex items-center ${collapsed ? "justify-center" : ""} ${isActive ? "bg-blue-700" : ""}`
-        }
-        title="Dashboard"
-      >
-        <DashboardIcon className="mr-2" />
-        {!collapsed && "Dashboard"}
-      </NavLink>
-      <NavLink
-        to="/shift-pool"
-        className={({ isActive }) =>
-          `py-3 px-4 rounded hover:bg-blue-700 transition mb-2 flex items-center ${collapsed ? "justify-center" : ""} ${isActive ? "bg-blue-700" : ""}`
-        }
-        title="Shift Pool"
-      >
-        <GroupsIcon className="mr-2" />
-        {!collapsed && "Shift Pool"}
-      </NavLink>
-      <NavLink
-        to="/schedule"
-        className={({ isActive }) =>
-          `py-3 px-4 rounded hover:bg-blue-700 transition mb-2 flex items-center ${collapsed ? "justify-center" : ""} ${isActive ? "bg-blue-700" : ""}`
-        }
-        title="Schedule"
-      >
-        <CalendarMonthIcon className="mr-2" />
-        {!collapsed && "Schedule"}
-      </NavLink>
-
-      {isAdmin && (
-        <NavLink
-          to="/admin"
-          className={({ isActive }) =>
-            `py-3 px-4 rounded hover:bg-blue-700 transition mb-2 flex items-center ${collapsed ? "justify-center" : ""} ${isActive ? "bg-blue-700" : ""}`
-          }
-          title="Organization"
+      {/* Logo + collapse */}
+      <div className="flex items-center justify-between mb-6 px-1">
+        {!collapsed && (
+          <span className="text-lg font-bold text-slate-800 tracking-tight">
+            Staff Scheduler
+          </span>
+        )}
+        <button
+          className="p-2 rounded-xl hover:bg-slate-100 text-slate-500 transition-colors"
+          onClick={() => setCollapsed((c) => !c)}
+          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
-          <CorporateFareIcon className="mr-2" />
-          {!collapsed && "Organization"}
-        </NavLink>
+          <MenuIcon fontSize="small" />
+        </button>
+      </div>
+
+      {/* User card */}
+      {!collapsed && (
+        <div className="mb-6 mx-1 p-3 bg-gradient-to-br from-blue-50 to-slate-50 rounded-2xl border border-slate-100">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-bold">
+              {firstName.charAt(0).toUpperCase()}
+            </div>
+            <div className="flex flex-col">
+              <span className="text-sm font-semibold text-slate-800">
+                Hi, {firstName}!
+              </span>
+              <span className="text-xs text-slate-500">Welcome back</span>
+            </div>
+          </div>
+        </div>
       )}
 
-      <a
-        href="#"
-        className={`py-3 px-4 rounded hover:bg-blue-700 transition mb-2 flex items-center ${collapsed ? "justify-center" : ""}`}
-        onClick={() => KeycloakService.kcLogout()}
-        title="Logout"
-      >
-        <LogoutIcon className="mr-2" />
-        {!collapsed && "Logout"}
-      </a>
+      {/* Main nav card */}
+      <div className="flex-1 flex flex-col gap-1 mx-1">
+        <NavLink
+          to="/account"
+          className={({ isActive }) => navLinkClass(isActive, collapsed)}
+          title="My Profile"
+        >
+          <PersonIcon fontSize="small" />
+          {!collapsed && "My Profile"}
+        </NavLink>
+        <NavLink
+          to="/"
+          end
+          className={({ isActive }) => navLinkClass(isActive, collapsed)}
+          title="Dashboard"
+        >
+          <DashboardIcon fontSize="small" />
+          {!collapsed && "Dashboard"}
+        </NavLink>
+        <NavLink
+          to="/shift-pool"
+          className={({ isActive }) => navLinkClass(isActive, collapsed)}
+          title="Shift Pool"
+        >
+          <GroupsIcon fontSize="small" />
+          {!collapsed && "Shift Pool"}
+        </NavLink>
+        <NavLink
+          to="/availability"
+          className={({ isActive }) => navLinkClass(isActive, collapsed)}
+          title="Availability"
+        >
+          <EventAvailableIcon fontSize="small" />
+          {!collapsed && "Availability"}
+        </NavLink>
+        <NavLink
+          to="/schedule"
+          className={({ isActive }) => navLinkClass(isActive, collapsed)}
+          title="Schedule"
+        >
+          <CalendarMonthIcon fontSize="small" />
+          {!collapsed && "Schedule"}
+        </NavLink>
+
+        {/* Manager section */}
+        {isManager && (
+          <>
+            {!collapsed && (
+              <div className="mt-5 mb-1 px-3 text-[10px] font-semibold text-slate-400 uppercase tracking-widest">
+                Management
+              </div>
+            )}
+            {collapsed && <div className="my-2 border-t border-slate-200" />}
+            <NavLink
+              to="/admin/staff"
+              className={({ isActive }) => navLinkClass(isActive, collapsed)}
+              title="Staff Management"
+            >
+              <PeopleIcon fontSize="small" />
+              {!collapsed && "Staff"}
+            </NavLink>
+            <NavLink
+              to="/admin/schedules"
+              className={({ isActive }) => navLinkClass(isActive, collapsed)}
+              title="Schedule Builder"
+            >
+              <BuildIcon fontSize="small" />
+              {!collapsed && "Schedule Builder"}
+            </NavLink>
+            <NavLink
+              to="/admin/shift-pool"
+              className={({ isActive }) => navLinkClass(isActive, collapsed)}
+              title="Shift Pool Mgmt"
+            >
+              <AssignmentIcon fontSize="small" />
+              {!collapsed && "Pool Mgmt"}
+            </NavLink>
+            <NavLink
+              to="/admin/settings"
+              className={({ isActive }) => navLinkClass(isActive, collapsed)}
+              title="Settings"
+            >
+              <SettingsIcon fontSize="small" />
+              {!collapsed && "Settings"}
+            </NavLink>
+          </>
+        )}
+
+        {isAdmin && (
+          <NavLink
+            to="/admin"
+            className={({ isActive }) => navLinkClass(isActive, collapsed)}
+            title="Organization"
+          >
+            <CorporateFareIcon fontSize="small" />
+            {!collapsed && "Organization"}
+          </NavLink>
+        )}
+      </div>
+
+      {/* Logout at bottom */}
+      <div className="mt-auto mx-1 pt-4 border-t border-slate-200">
+        <a
+          href="#"
+          className={`py-2.5 px-3 rounded-xl transition-all duration-200 flex items-center gap-3 text-sm font-medium text-slate-500 hover:bg-red-50 hover:text-red-600 ${collapsed ? "justify-center px-2" : ""}`}
+          onClick={() => KeycloakService.kcLogout()}
+          title="Logout"
+        >
+          <LogoutIcon fontSize="small" />
+          {!collapsed && "Logout"}
+        </a>
+      </div>
     </nav>
   )
 }

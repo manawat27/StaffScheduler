@@ -4,10 +4,11 @@ import { Outlet } from "react-router-dom"
 
 import SideBar from "../SideBar/SideBar"
 import { useState, useEffect } from "react"
-import KeycloakService from "@/auth/keycloakService"
+import KeycloakService from "../../auth/keycloakService"
 
 export default function Layout() {
   const [userName, setUserName] = useState("")
+  const [userRole, setUserRole] = useState("")
 
   useEffect(() => {
     document.title = "Staff Scheduler"
@@ -16,22 +17,24 @@ export default function Layout() {
       ", " +
       KeycloakService.getUserInfo()?.firstName
     setUserName(userName || "")
+    const userRole = KeycloakService.getUserInfo()?.roles[0]
+    setUserRole(userRole || "")
   }, [])
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Header */}
-      <Header userName={userName} />
-      {/* Main Content with Sidebar */}
-      <div className="flex flex-1">
-        {/* Sidebar */}
-        <SideBar />
+    <div className="flex min-h-screen bg-slate-100">
+      {/* Sidebar */}
+      <SideBar />
+      {/* Right side: header + content + footer */}
+      <div className="flex flex-col flex-1 min-h-screen">
+        {/* Header */}
+        <Header userName={userName} userRole={userRole} />
         {/* Main Content */}
-        <main className="flex-1 bg-gray-100 p-6 overflow-auto">
+        <main className="flex-1 p-6 overflow-auto">
           <Outlet />
         </main>
+        {/* Footer */}
+        <Footer />
       </div>
-      {/* Footer */}
-      <Footer />
     </div>
   )
 }

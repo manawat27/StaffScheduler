@@ -27,6 +27,7 @@ export class TimeOffController {
   @Get()
   @Roles(AppRole.MANAGER, AppRole.ADMIN)
   findAll() {
+    console.log("Fetching all time off requests");
     return this.timeOffService.findAll();
   }
 
