@@ -98,8 +98,8 @@ export default function SchedulePage() {
 
   if (!selected) {
     return (
-      <div className="p-6">
-        <Typography variant="h4" className="font-bold mb-4">
+      <div>
+        <Typography variant="h5" className="font-bold mb-4 text-lg sm:text-2xl">
           My Schedule
         </Typography>
         <Alert severity="info">No published schedules available yet.</Alert>
@@ -122,11 +122,11 @@ export default function SchedulePage() {
   const today = new Date().toISOString().split("T")[0]
 
   return (
-    <div className="p-6">
-      <Box className="flex items-center justify-between mb-6">
+    <div>
+      <Box className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-3">
         <Box className="flex items-center gap-2">
           <CalendarMonthIcon color="primary" fontSize="large" />
-          <Typography variant="h4" className="font-bold">
+          <Typography variant="h5" className="font-bold text-lg sm:text-2xl">
             My Schedule
           </Typography>
         </Box>
@@ -174,8 +174,8 @@ export default function SchedulePage() {
       </Typography>
 
       {weeks.map((week, wi) => (
-        <Paper key={wi} elevation={1} className="mb-4 overflow-hidden">
-          <Box className="grid grid-cols-7">
+        <Paper key={wi} elevation={1} className="mb-4 overflow-x-auto">
+          <Box className="grid grid-cols-7 min-w-[560px]">
             {DAYS.map((day) => (
               <Box
                 key={day}
@@ -185,7 +185,10 @@ export default function SchedulePage() {
               </Box>
             ))}
           </Box>
-          <Box className="grid grid-cols-7" sx={{ minHeight: 120 }}>
+          <Box
+            className="grid grid-cols-7 min-w-[560px]"
+            sx={{ minHeight: 120 }}
+          >
             {/* Pad start of week */}
             {(() => {
               const firstDay = new Date(week[0] + "T00:00:00").getDay()

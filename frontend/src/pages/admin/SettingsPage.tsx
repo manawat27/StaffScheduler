@@ -166,10 +166,10 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="p-6">
-      <Box className="flex items-center gap-2 mb-6">
+    <div>
+      <Box className="flex items-center gap-2 mb-4 sm:mb-6">
         <SettingsIcon color="primary" fontSize="large" />
-        <Typography variant="h4" className="font-bold">
+        <Typography variant="h5" className="font-bold text-lg sm:text-2xl">
           Settings
         </Typography>
       </Box>
