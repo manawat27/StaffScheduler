@@ -75,8 +75,11 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="p-6">
-      <Typography variant="h4" className="font-bold mb-6">
+    <div>
+      <Typography
+        variant="h5"
+        className="font-bold mb-4 sm:mb-6 text-lg sm:text-2xl"
+      >
         Dashboard
       </Typography>
 
@@ -131,7 +134,7 @@ export default function DashboardPage() {
             <Paper
               key={shift.id}
               variant="outlined"
-              className="p-3 flex items-center justify-between"
+              className="p-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2"
             >
               <Box>
                 <Typography variant="subtitle2" className="font-medium">
@@ -181,7 +184,7 @@ export default function DashboardPage() {
                 variant="outlined"
                 className="p-3 flex items-center justify-between"
               >
-                <Typography variant="body2">
+                <Typography variant="body2" className="truncate">
                   {new Date(req.start_date + "T00:00:00").toLocaleDateString()}{" "}
                   – {new Date(req.end_date + "T00:00:00").toLocaleDateString()}
                   {req.reason && ` • ${req.reason}`}
@@ -191,6 +194,7 @@ export default function DashboardPage() {
                   color="warning"
                   size="small"
                   variant="outlined"
+                  className="shrink-0"
                 />
               </Paper>
             ))}

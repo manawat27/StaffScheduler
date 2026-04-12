@@ -142,8 +142,8 @@ export default function AvailabilityPage() {
 
   if (!profile) {
     return (
-      <div className="p-6">
-        <Typography variant="h4" className="font-bold mb-4">
+      <div>
+        <Typography variant="h5" className="font-bold mb-4 text-lg sm:text-2xl">
           Availability
         </Typography>
         <Alert severity="info">
@@ -155,10 +155,10 @@ export default function AvailabilityPage() {
   }
 
   return (
-    <div className="p-6">
-      <Box className="flex items-center gap-2 mb-6">
+    <div>
+      <Box className="flex items-center gap-2 mb-4 sm:mb-6">
         <EventAvailableIcon color="primary" fontSize="large" />
-        <Typography variant="h4" className="font-bold">
+        <Typography variant="h5" className="font-bold text-lg sm:text-2xl">
           Availability
         </Typography>
       </Box>
@@ -178,7 +178,7 @@ export default function AvailabilityPage() {
           Toggle the days you are available to work. This is your recurring
           weekly schedule.
         </Typography>
-        <Box className="grid grid-cols-7 gap-2">
+        <Box className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2">
           {DAYS.map((day) => (
             <Paper
               key={day.idx}
