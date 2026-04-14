@@ -17,8 +17,10 @@ export default function Layout() {
       ", " +
       KeycloakService.getUserInfo()?.firstName
     setUserName(userName || "")
-    const userRole = KeycloakService.getUserInfo()?.roles[0]
-    setUserRole(userRole || "")
+    const userRole = (KeycloakService.getUserInfo()?.roles[0] || "")
+      .replace(/_/g, " ")
+      .replace(/\b\w/g, (c: string) => c.toUpperCase())
+    setUserRole(userRole)
   }, [])
   return (
     <div className="flex min-h-screen bg-slate-100">

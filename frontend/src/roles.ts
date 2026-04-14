@@ -1,6 +1,10 @@
 enum Roles {
-  ENMODS_USER = 'Enmods User',
-  ENMODS_ADMIN = 'Enmods Admin',
+  ADMIN = "admin",
+  GENERAL_MANAGER = "general_manager",
+  FOH_MANAGER = "front_of_house_manager",
+  HOST = "host",
+  SERVER = "server",
+  EXPO = "expo",
 }
 
 export default Roles

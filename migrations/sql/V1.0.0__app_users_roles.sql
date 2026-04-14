@@ -29,15 +29,36 @@ VALUES
     'system'
   ),
   (
-    'staff',
-    'Staff',
+    'general_manager',
+    'General Manager',
     CURRENT_TIMESTAMP,
     '2099-12-31 23:59:59',
     'system'
   ),
   (
-    'manager',
-    'Manager',
+    'front_of_house_manager',
+    'Front of House Manager',
+    CURRENT_TIMESTAMP,
+    '2099-12-31 23:59:59',
+    'system'
+  ),
+  (
+    'host',
+    'Host',
+    CURRENT_TIMESTAMP,
+    '2099-12-31 23:59:59',
+    'system'
+  ),
+  (
+    'server',
+    'Server',
+    CURRENT_TIMESTAMP,
+    '2099-12-31 23:59:59',
+    'system'
+  ),
+  (
+    'expo',
+    'Expo',
     CURRENT_TIMESTAMP,
     '2099-12-31 23:59:59',
     'system'
@@ -78,7 +99,7 @@ COMMENT ON COLUMN app_users.last_name IS 'Last name of the user';
 
 COMMENT ON COLUMN app_users.phone IS 'Optional phone number';
 
-COMMENT ON COLUMN app_users.role IS 'Role from app_users_roles table (e.g., admin, staff, manager)';
+COMMENT ON COLUMN app_users.role IS 'Role from app_users_roles table (e.g., admin, general_manager, front_of_house_manager, host, server, expo)';
 
 COMMENT ON COLUMN app_users.enabled IS 'Indicates whether the user is enabled or disabled';
 

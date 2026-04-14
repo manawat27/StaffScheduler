@@ -172,7 +172,7 @@
     }
   ],
   "roles": {
-    "realm": [{ "name": "admin" }, { "name": "manager" }, { "name": "staff" }]
+    "realm": [{ "name": "admin" }, { "name": "general_manager" }, { "name": "front_of_house_manager" }, { "name": "host" }, { "name": "server" }, { "name": "expo" }]
   },
   "components": {
     "org.keycloak.userprofile.UserProfileProvider": [
@@ -235,7 +235,7 @@
           "temporary": false
         }
       ],
-      "realmRoles": ["manager"]
+      "realmRoles": ["general_manager"]
     },
     {
       "username": "smiller",
@@ -259,7 +259,7 @@
           "temporary": false
         }
       ],
-      "realmRoles": ["staff"]
+      "realmRoles": ["server"]
     },
     {
       "username": "lparker",
@@ -307,7 +307,7 @@
           "temporary": false
         }
       ],
-      "realmRoles": ["manager"]
+      "realmRoles": ["front_of_house_manager"]
     },
     {
       "username": "awilson",
@@ -331,7 +331,7 @@
           "temporary": false
         }
       ],
-      "realmRoles": ["staff"]
+      "realmRoles": ["host"]
     }
   ],
   "organizations": [
@@ -390,7 +390,7 @@
               "temporary": false
             }
           ],
-          "realmRoles": ["manager"]
+          "realmRoles": ["general_manager"]
         },
         {
           "username": "smiller",
@@ -413,7 +413,7 @@
               "temporary": false
             }
           ],
-          "realmRoles": ["staff"]
+          "realmRoles": ["server"]
         }
       ]
     },
@@ -474,7 +474,7 @@
               "temporary": false
             }
           ],
-          "realmRoles": ["manager"]
+          "realmRoles": ["front_of_house_manager"]
         },
         {
           "username": "awilson",
@@ -498,7 +498,7 @@
               "temporary": false
             }
           ],
-          "realmRoles": ["staff"]
+          "realmRoles": ["host"]
         }
       ]
     }

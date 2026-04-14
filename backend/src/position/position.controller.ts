@@ -10,7 +10,7 @@ import {
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { RolesGuard } from "src/auth/roles.guard";
-import { Roles, AppRole } from "src/auth/decorators/roles.decorator";
+import { Roles, MANAGEMENT_ROLES } from "src/auth/decorators/roles.decorator";
 import { User } from "src/auth/decorators/user.decorator";
 import { AuthenticatedUser } from "src/auth/jwt.strategy";
 import { ConnectionInterceptor } from "src/connection/connection.interceptor";
@@ -40,14 +40,14 @@ export class PositionController {
   }
 
   @Post()
-  @Roles(AppRole.MANAGER, AppRole.ADMIN)
+  @Roles(...MANAGEMENT_ROLES)
   create(@Body() dto: CreatePositionDto, @User() user: AuthenticatedUser) {
     dto.who_created = user.username;
     return this.positionService.create(dto);
   }
 
   @Put(":id")
-  @Roles(AppRole.MANAGER, AppRole.ADMIN)
+  @Roles(...MANAGEMENT_ROLES)
   update(
     @Param("id") id: string,
     @Body() dto: UpdatePositionDto,

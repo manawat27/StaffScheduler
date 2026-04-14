@@ -11,7 +11,7 @@ import {
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { RolesGuard } from "src/auth/roles.guard";
-import { Roles, AppRole } from "src/auth/decorators/roles.decorator";
+import { Roles, MANAGEMENT_ROLES } from "src/auth/decorators/roles.decorator";
 import { User } from "src/auth/decorators/user.decorator";
 import { AuthenticatedUser } from "src/auth/jwt.strategy";
 import { ConnectionInterceptor } from "src/connection/connection.interceptor";
@@ -33,7 +33,7 @@ export class ScheduleController {
   // ─── Schedule CRUD ──────────────────────────────────────
 
   @Get()
-  @Roles(AppRole.MANAGER, AppRole.ADMIN)
+  @Roles(...MANAGEMENT_ROLES)
   findAll() {
     return this.scheduleService.findAllSchedules();
   }
@@ -49,13 +49,13 @@ export class ScheduleController {
   }
 
   @Get("staff/:staffProfileId")
-  @Roles(AppRole.MANAGER, AppRole.ADMIN)
+  @Roles(...MANAGEMENT_ROLES)
   getStaffShifts(@Param("staffProfileId") staffProfileId: string) {
     return this.scheduleService.getShiftsForStaff(staffProfileId);
   }
 
   @Get("config/staffing-requirements")
-  @Roles(AppRole.MANAGER, AppRole.ADMIN)
+  @Roles(...MANAGEMENT_ROLES)
   findAllRequirements() {
     return this.scheduleService.findAllRequirements();
   }
@@ -66,20 +66,20 @@ export class ScheduleController {
   }
 
   @Post()
-  @Roles(AppRole.MANAGER, AppRole.ADMIN)
+  @Roles(...MANAGEMENT_ROLES)
   create(@Body() dto: CreateScheduleDto, @User() user: AuthenticatedUser) {
     dto.who_created = user.username;
     return this.scheduleService.createSchedule(dto);
   }
 
   @Put(":id/publish")
-  @Roles(AppRole.MANAGER, AppRole.ADMIN)
+  @Roles(...MANAGEMENT_ROLES)
   publish(@Param("id") id: string, @User() user: AuthenticatedUser) {
     return this.scheduleService.publishSchedule(id, user.username);
   }
 
   @Put(":id/archive")
-  @Roles(AppRole.MANAGER, AppRole.ADMIN)
+  @Roles(...MANAGEMENT_ROLES)
   archive(@Param("id") id: string, @User() user: AuthenticatedUser) {
     return this.scheduleService.archiveSchedule(id, user.username);
   }
@@ -87,7 +87,7 @@ export class ScheduleController {
   // ─── Shift Management ──────────────────────────────────
 
   @Post(":id/shifts")
-  @Roles(AppRole.MANAGER, AppRole.ADMIN)
+  @Roles(...MANAGEMENT_ROLES)
   addShift(
     @Param("id") scheduleId: string,
     @Body() dto: AddShiftDto,
@@ -98,7 +98,7 @@ export class ScheduleController {
   }
 
   @Put("shifts/:shiftId/assign")
-  @Roles(AppRole.MANAGER, AppRole.ADMIN)
+  @Roles(...MANAGEMENT_ROLES)
   assignShift(
     @Param("shiftId") shiftId: string,
     @Body() dto: AssignShiftDto,
@@ -111,7 +111,7 @@ export class ScheduleController {
   // ─── Auto-Generate ─────────────────────────────────────
 
   @Post(":id/auto-generate")
-  @Roles(AppRole.MANAGER, AppRole.ADMIN)
+  @Roles(...MANAGEMENT_ROLES)
   autoGenerate(@Param("id") id: string, @User() user: AuthenticatedUser) {
     return this.scheduleService.autoGenerate(id, user.username);
   }
@@ -119,7 +119,7 @@ export class ScheduleController {
   // ─── Staffing Requirements ─────────────────────────────
 
   @Post("config/staffing-requirements")
-  @Roles(AppRole.MANAGER, AppRole.ADMIN)
+  @Roles(...MANAGEMENT_ROLES)
   createRequirement(
     @Body() dto: CreateStaffingRequirementDto,
     @User() user: AuthenticatedUser,
@@ -129,7 +129,7 @@ export class ScheduleController {
   }
 
   @Put("config/staffing-requirements/:id")
-  @Roles(AppRole.MANAGER, AppRole.ADMIN)
+  @Roles(...MANAGEMENT_ROLES)
   updateRequirement(
     @Param("id") id: string,
     @Body() dto: UpdateStaffingRequirementDto,
@@ -140,7 +140,7 @@ export class ScheduleController {
   }
 
   @Delete("config/staffing-requirements/:id")
-  @Roles(AppRole.MANAGER, AppRole.ADMIN)
+  @Roles(...MANAGEMENT_ROLES)
   deleteRequirement(@Param("id") id: string) {
     return this.scheduleService.deleteRequirement(id);
   }
