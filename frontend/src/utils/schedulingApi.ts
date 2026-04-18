@@ -66,7 +66,10 @@ export const setAvailability = (
 
 // ─── Time Off ─────────────────────────────────────────────
 
-export const getMyTimeOffRequests = (staffProfileId: string) =>
+export const getMyTimeOffRequests = () =>
+  api.get<TimeOffRequest[]>("/time-off/me").then((r) => r.data)
+
+export const getTimeOffByStaffProfile = (staffProfileId: string) =>
   api
     .get<TimeOffRequest[]>(`/time-off/staff/${staffProfileId}`)
     .then((r) => r.data)
@@ -264,7 +267,9 @@ export const getAppUsers = () => api.get<any[]>("/app-user").then((r) => r.data)
 // ─── Roles ──────────────────────────────────────────────
 
 export const getRoles = () =>
-  api.get<{ code: string; description: string }[]>("/app-user-role").then((r) => r.data)
+  api
+    .get<{ code: string; description: string }[]>("/app-user-role")
+    .then((r) => r.data)
 
 // ─── Invite User ────────────────────────────────────────
 

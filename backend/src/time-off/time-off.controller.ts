@@ -31,6 +31,11 @@ export class TimeOffController {
     return this.timeOffService.findAll();
   }
 
+  @Get("me")
+  findMine(@User() user: AuthenticatedUser) {
+    return this.timeOffService.findByUserUuid(user.id);
+  }
+
   @Get("staff/:staffProfileId")
   findByStaffProfile(@Param("staffProfileId") staffProfileId: string) {
     return this.timeOffService.findByStaffProfile(staffProfileId);

@@ -5,7 +5,6 @@ import GroupsIcon from "@mui/icons-material/Groups"
 import PersonIcon from "@mui/icons-material/Person"
 import DashboardIcon from "@mui/icons-material/Dashboard"
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
-import CorporateFareIcon from "@mui/icons-material/CorporateFare"
 import EventAvailableIcon from "@mui/icons-material/EventAvailable"
 import PeopleIcon from "@mui/icons-material/People"
 import BuildIcon from "@mui/icons-material/Build"
@@ -21,7 +20,6 @@ const navLinkClass = (isActive: boolean, compact: boolean) =>
   ${isActive ? "bg-blue-600 text-white shadow-md shadow-blue-600/30" : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"}`
 
 export default function SideBar({ onNavigate }: { onNavigate?: () => void }) {
-  const [isAdmin, setIsAdmin] = useState(false)
   const [isManager, setIsManager] = useState(false)
   const [collapsed, setCollapsed] = useState(() => {
     const stored = localStorage.getItem("sidebar-collapsed")
@@ -44,9 +42,6 @@ export default function SideBar({ onNavigate }: { onNavigate?: () => void }) {
       "general_manager",
       "front_of_house_manager",
     ]
-    if (userRoles.includes("admin")) {
-      setIsAdmin(true)
-    }
     if (managementRoles.some((r) => userRoles.includes(r))) {
       setIsManager(true)
     }
@@ -202,18 +197,6 @@ export default function SideBar({ onNavigate }: { onNavigate?: () => void }) {
               {!compact && "Settings"}
             </NavLink>
           </>
-        )}
-
-        {isAdmin && (
-          <NavLink
-            to="/admin"
-            onClick={onNavigate}
-            className={({ isActive }) => navLinkClass(isActive, compact)}
-            title="Organization"
-          >
-            <CorporateFareIcon fontSize="small" />
-            {!compact && "Organization"}
-          </NavLink>
         )}
       </div>
 
