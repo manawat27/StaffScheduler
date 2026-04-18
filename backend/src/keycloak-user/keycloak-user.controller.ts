@@ -23,12 +23,12 @@ import { AppRole, Roles } from "src/auth/decorators/roles.decorator";
 
 @UseInterceptors(ConnectionInterceptor)
 @UseGuards(AuthGuard("jwt"), RolesGuard)
-@Roles(AppRole.ADMIN)
 @Controller("keycloak-user")
 export class KeycloakUserController {
   constructor(private readonly keycloakUserService: KeycloakUserService) {}
 
   @Post()
+  @Roles(AppRole.ADMIN)
   create(
     @User() user: AuthenticatedUser,
     @Body()
@@ -57,6 +57,7 @@ export class KeycloakUserController {
   }
 
   @Delete(":uuid")
+  @Roles(AppRole.ADMIN)
   remove(@User() user: AuthenticatedUser, @Param("uuid") uuid: string) {
     return this.keycloakUserService.remove(uuid);
   }
