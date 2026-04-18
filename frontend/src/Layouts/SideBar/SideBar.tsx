@@ -12,7 +12,7 @@ import SettingsIcon from "@mui/icons-material/Settings"
 import AssignmentIcon from "@mui/icons-material/Assignment"
 import LogoutIcon from "@mui/icons-material/Logout"
 import CloseIcon from "@mui/icons-material/Close"
-import KeycloakService from "@/auth/keycloakService"
+import KeycloakService from "../../auth/keycloakService"
 
 const navLinkClass = (isActive: boolean, compact: boolean) =>
   `py-2.5 px-3 rounded-xl transition-all duration-200 flex items-center gap-3 text-sm font-medium
