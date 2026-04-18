@@ -1,8 +1,17 @@
 -- ============================================================
--- V1.2.0 — Seed data: positions & app_users
+-- V1.2.0 — Seed data: shift_types, positions & app_users
 -- ============================================================
 
--- 1. Positions
+-- 1. Shift Types
+INSERT INTO shift_type (name, start_time, end_time, who_created)
+VALUES
+  ('Morning',   '07:00', '15:00', 'system'),
+  ('Afternoon', '11:00', '19:00', 'system'),
+  ('Evening',   '16:00', '00:00', 'system'),
+  ('Closing',   '19:00', '02:00', 'system')
+ON CONFLICT DO NOTHING;
+
+-- 2. Positions
 INSERT INTO position (name, description, who_created)
 VALUES
   ('Server',                'Handles table service and guest orders.',           'system'),
@@ -12,7 +21,7 @@ VALUES
   ('Front of House Manager','Manages front-of-house staff and guest experience.','system')
 ON CONFLICT (name) DO NOTHING;
 
--- 2. App Users (matching Keycloak realm-export users)
+-- 3. App Users (matching Keycloak realm-export users)
 INSERT INTO app_users (uuid, email, user_name, first_name, last_name, phone, date_of_birth, country, city, postal_code, role, enabled, who_created)
 VALUES
   ('c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0c0', 'jsmith@fifth-st.com',      'jsmith',   'John',  'Smith',   '123-456-7890', '1985-06-15', 'United States', 'New York',    '10001',    'admin',                     true, 'system'),
