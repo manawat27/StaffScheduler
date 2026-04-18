@@ -39,6 +39,14 @@ export class TimeOffService {
     });
   }
 
+  async findByUserUuid(userUuid: string) {
+    return this.repository.find({
+      where: { staff_profile: { user_uuid: userUuid } },
+      relations: ["staff_profile"],
+      order: { start_date: "DESC" },
+    });
+  }
+
   async findApprovedInRange(startDate: string, endDate: string) {
     return this.repository.find({
       where: {

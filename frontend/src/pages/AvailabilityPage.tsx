@@ -18,7 +18,7 @@ import {
   getMyStaffProfile,
   getAvailability,
   setAvailability,
-  getMyTimeOffRequests,
+  getTimeOffByStaffProfile,
   createTimeOffRequest,
 } from "../utils/schedulingApi"
 import type {
@@ -77,7 +77,7 @@ export default function AvailabilityPage() {
         }
         setAvailabilityState(map)
 
-        const tors = await getMyTimeOffRequests(prof.id)
+        const tors = await getTimeOffByStaffProfile(prof.id)
         setTimeOffs(tors)
       }
     } catch {
@@ -123,7 +123,7 @@ export default function AvailabilityPage() {
       setStartDate("")
       setEndDate("")
       setReason("")
-      const tors = await getMyTimeOffRequests(profile.id)
+      const tors = await getTimeOffByStaffProfile(profile.id)
       setTimeOffs(tors)
     } catch {
       toast.error("Failed to submit request")
