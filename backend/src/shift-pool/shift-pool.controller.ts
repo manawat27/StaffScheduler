@@ -10,7 +10,7 @@ import {
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { RolesGuard } from "src/auth/roles.guard";
-import { Roles, AppRole } from "src/auth/decorators/roles.decorator";
+import { Roles, MANAGEMENT_ROLES } from "src/auth/decorators/roles.decorator";
 import { User } from "src/auth/decorators/user.decorator";
 import { AuthenticatedUser } from "src/auth/jwt.strategy";
 import { ConnectionInterceptor } from "src/connection/connection.interceptor";
@@ -75,13 +75,13 @@ export class ShiftPoolController {
   }
 
   @Get(":shiftId/requests")
-  @Roles(AppRole.MANAGER, AppRole.ADMIN)
+  @Roles(...MANAGEMENT_ROLES)
   findRequestsForShift(@Param("shiftId") shiftId: string) {
     return this.shiftPoolService.findRequestsForShift(shiftId);
   }
 
   @Put("requests/:requestId/review")
-  @Roles(AppRole.MANAGER, AppRole.ADMIN)
+  @Roles(...MANAGEMENT_ROLES)
   reviewRequest(
     @Param("requestId") requestId: string,
     @Body() dto: ReviewShiftPoolRequestDto,

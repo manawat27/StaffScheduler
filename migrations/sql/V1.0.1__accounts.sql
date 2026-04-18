@@ -1,4 +1,10 @@
-CREATE EXTENSION IF NOT EXISTS citext SCHEMA public;
+DO $$
+BEGIN
+    CREATE EXTENSION IF NOT EXISTS citext SCHEMA public;
+EXCEPTION WHEN unique_violation THEN
+    -- Extension already exists, ignore
+END;
+$$;
 
 CREATE TABLE
     IF NOT EXISTS public.account_plan_type_code (

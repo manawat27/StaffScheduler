@@ -67,7 +67,14 @@ const getUserInfo = (): {
       city: keycloak.tokenParsed.city ?? null,
       postalCode: keycloak.tokenParsed.postalCode ?? null,
       organization: keycloak.tokenParsed.organization ?? null,
-      roles: keycloak.tokenParsed.realm_access?.roles || [],
+      roles: (keycloak.tokenParsed.realm_access?.roles || []).filter(
+        (r: string) =>
+          ![
+            "default-roles-staff-scheduler",
+            "offline_access",
+            "uma_authorization",
+          ].includes(r),
+      ),
       enabled: keycloak.tokenParsed.enabled ?? true,
     }
   }

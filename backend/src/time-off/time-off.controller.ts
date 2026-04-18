@@ -10,7 +10,7 @@ import {
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { RolesGuard } from "src/auth/roles.guard";
-import { Roles, AppRole } from "src/auth/decorators/roles.decorator";
+import { Roles, MANAGEMENT_ROLES } from "src/auth/decorators/roles.decorator";
 import { User } from "src/auth/decorators/user.decorator";
 import { AuthenticatedUser } from "src/auth/jwt.strategy";
 import { ConnectionInterceptor } from "src/connection/connection.interceptor";
@@ -25,7 +25,7 @@ export class TimeOffController {
   constructor(private readonly timeOffService: TimeOffService) {}
 
   @Get()
-  @Roles(AppRole.MANAGER, AppRole.ADMIN)
+  @Roles(...MANAGEMENT_ROLES)
   findAll() {
     console.log("Fetching all time off requests");
     return this.timeOffService.findAll();
@@ -43,7 +43,7 @@ export class TimeOffController {
   }
 
   @Put(":id/review")
-  @Roles(AppRole.MANAGER, AppRole.ADMIN)
+  @Roles(...MANAGEMENT_ROLES)
   review(
     @Param("id") id: string,
     @Body() dto: ReviewTimeOffDto,

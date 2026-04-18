@@ -38,12 +38,16 @@ export default function SideBar({ onNavigate }: { onNavigate?: () => void }) {
   }, [])
 
   useEffect(() => {
-    const userRole = KeycloakService.getUserInfo()?.roles || []
-    if (userRole.includes("admin")) {
+    const userRoles = KeycloakService.getUserInfo()?.roles || []
+    const managementRoles = [
+      "admin",
+      "general_manager",
+      "front_of_house_manager",
+    ]
+    if (userRoles.includes("admin")) {
       setIsAdmin(true)
-      setIsManager(true)
     }
-    if (userRole.includes("manager")) {
+    if (managementRoles.some((r) => userRoles.includes(r))) {
       setIsManager(true)
     }
   }, [])

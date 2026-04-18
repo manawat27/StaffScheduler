@@ -103,6 +103,8 @@ services:
       KC_HOSTNAME_STRICT_HTTPS: false
       KC_SSL_REQUIRED: none
       KC_IMPORT_REALM: /opt/keycloak/data/import/realm-export.json
+      KC_SMTP_SERVER_USER: ""
+      KC_SMTP_SERVER_PASSWORD: ""
     volumes:
       - ./keycloak-config/realm-export.json:/opt/keycloak/data/import/realm-export.json:ro
       - ./keycloak-config/themes/:/opt/keycloak/themes/:ro
@@ -125,10 +127,17 @@ services:
       dockerfile: Dockerfile
     environment:
       NODE_ENV: development
+      ENVIRONMENT: local
       POSTGRES_HOST: postgres
       POSTGRES_USER: schdusr
       POSTGRES_PASSWORD: password
       POSTGRES_DATABASE: scheduler
+      KEYCLOAK_CLIENT_ID: staff-scheduler
+      KEYCLOAK_BASE_URL: http://keycloak:8080
+      KEYCLOAK_REALM: staff-scheduler
+      KEYCLOAK_ADMIN_USERNAME: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      FRONTEND_URL: http://localhost:5173
     # image: node:22
     ports: ["3001:3000"]
     healthcheck:
@@ -163,6 +172,16 @@ services:
     depends_on:
       backend:
         condition: service_healthy
+    networks:
+      - app-network
+
+  mailhog:
+    image: mailhog/mailhog
+    platform: linux/amd64 # use this for machine with Apple Silicon, remove for x86_64 machines
+    container_name: mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
     networks:
       - app-network
 

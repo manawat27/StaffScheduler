@@ -79,10 +79,7 @@ export class KeycloakUserService {
         {
           params: {
             client_id: process.env.KEYCLOAK_CLIENT_ID,
-            redirect_uri:
-              process.env.ENVIRONMENT === "local"
-                ? "http://localhost:3000"
-                : process.env.FRONTEND_URL,
+            redirect_uri: process.env.FRONTEND_URL || "http://localhost:5173",
           },
         },
       );
@@ -195,10 +192,7 @@ export class KeycloakUserService {
             : "",
         ];
 
-      this.logger.log(
-        `Updating user ${existingUser.username} with data:`,
-        updateData,
-      );
+      this.logger.log(`Updating user ${existingUser.username}`);
 
       // Update the user in Keycloak
       try {
