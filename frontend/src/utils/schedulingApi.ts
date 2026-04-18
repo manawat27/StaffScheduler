@@ -260,3 +260,19 @@ export const updatePosition = (
 // ─── Users ──────────────────────────────────────────────
 
 export const getAppUsers = () => api.get<any[]>("/app-user").then((r) => r.data)
+
+// ─── Roles ──────────────────────────────────────────────
+
+export const getRoles = () =>
+  api.get<{ code: string; description: string }[]>("/app-user-role").then((r) => r.data)
+
+// ─── Invite User ────────────────────────────────────────
+
+export const inviteUser = (data: {
+  email: string
+  user_name: string
+  first_name: string
+  last_name: string
+  role: string
+  phone?: string
+}) => api.post("/keycloak-user", data).then((r) => r.data)

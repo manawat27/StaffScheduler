@@ -8,6 +8,15 @@
   "duplicateEmailsAllowed": false,
   "registrationEmailAsUsername": false,
   "sslRequired": "none",
+  "smtpServer": {
+    "host": "mailhog",
+    "port": "1025",
+    "from": "noreply@staffscheduler.dev",
+    "fromDisplayName": "Staff Scheduler",
+    "ssl": "false",
+    "starttls": "false",
+    "auth": "false"
+  },
   "loginTheme": "staff-scheduler-theme",
   "attributes": {
     "pkce.code.challenge.method": "S256",

@@ -29,6 +29,7 @@ import {
 import PeopleIcon from "@mui/icons-material/People"
 import EditIcon from "@mui/icons-material/Edit"
 import AddIcon from "@mui/icons-material/Add"
+import PersonAddIcon from "@mui/icons-material/PersonAdd"
 import { toast } from "react-toastify"
 import {
   getStaffProfiles,
@@ -38,6 +39,8 @@ import {
   updateStaffProfile,
   getAllTimeOffRequests,
   reviewTimeOff,
+  getRoles,
+  inviteUser,
 } from "../../utils/schedulingApi"
 import type {
   StaffProfile,
@@ -76,6 +79,21 @@ export default function StaffManagementPage() {
     max_consecutive_days: 5,
     is_active: true,
   })
+
+  // Invite modal state
+  const [inviteOpen, setInviteOpen] = useState(false)
+  const [roles, setRoles] = useState<{ code: string; description: string }[]>(
+    [],
+  )
+  const [inviteForm, setInviteForm] = useState({
+    email: "",
+    user_name: "",
+    first_name: "",
+    last_name: "",
+    role: "",
+    phone: "",
+  })
+  const [inviting, setInviting] = useState(false)
 
   useEffect(() => {
     loadData()
@@ -185,6 +203,56 @@ export default function StaffManagementPage() {
     }
   }
 
+  async function openInviteModal() {
+    setInviteForm({
+      email: "",
+      user_name: "",
+      first_name: "",
+      last_name: "",
+      role: "",
+      phone: "",
+    })
+    try {
+      const r = await getRoles()
+      setRoles(r)
+    } catch {
+      toast.error("Failed to load roles")
+    }
+    setInviteOpen(true)
+  }
+
+  async function handleInvite() {
+    if (
+      !inviteForm.email ||
+      !inviteForm.first_name ||
+      !inviteForm.last_name ||
+      !inviteForm.role
+    ) {
+      toast.error("Please fill in all required fields")
+      return
+    }
+    const userName = inviteForm.user_name || inviteForm.email.split("@")[0]
+    setInviting(true)
+    try {
+      await inviteUser({
+        email: inviteForm.email,
+        user_name: userName,
+        first_name: inviteForm.first_name,
+        last_name: inviteForm.last_name,
+        role: inviteForm.role,
+        phone: inviteForm.phone || undefined,
+      })
+      toast.success(`Invitation sent to ${inviteForm.email}`)
+      setInviteOpen(false)
+      await loadData()
+    } catch (err: any) {
+      const msg = err?.response?.data?.message || "Failed to invite user"
+      toast.error(msg)
+    } finally {
+      setInviting(false)
+    }
+  }
+
   if (loading) {
     return (
       <Box className="flex justify-center items-center h-64">
@@ -202,6 +270,14 @@ export default function StaffManagementPage() {
         <Typography variant="h4" className="font-bold">
           Staff Management
         </Typography>
+        <Box sx={{ flexGrow: 1 }} />
+        <Button
+          variant="contained"
+          startIcon={<PersonAddIcon />}
+          onClick={openInviteModal}
+        >
+          Invite User
+        </Button>
       </Box>
 
       {error && (
@@ -516,6 +592,109 @@ export default function StaffManagementPage() {
           <Button onClick={() => setModalOpen(false)}>Cancel</Button>
           <Button variant="contained" onClick={handleSave}>
             {editingProfile ? "Update" : "Create"}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Invite User Modal */}
+      <Dialog
+        open={inviteOpen}
+        onClose={() => setInviteOpen(false)}
+        maxWidth="sm"
+        fullWidth
+      >
+        <DialogTitle>Invite User</DialogTitle>
+        <DialogContent className="space-y-4 pt-2">
+          <TextField
+            label="Email"
+            type="email"
+            fullWidth
+            margin="normal"
+            required
+            value={inviteForm.email}
+            onChange={(e) => {
+              const email = e.target.value
+              setInviteForm((f) => ({
+                ...f,
+                email,
+                user_name: f.user_name || "",
+              }))
+            }}
+            onBlur={() => {
+              if (inviteForm.email && !inviteForm.user_name) {
+                setInviteForm((f) => ({
+                  ...f,
+                  user_name: f.email.split("@")[0],
+                }))
+              }
+            }}
+          />
+          <TextField
+            label="First Name"
+            fullWidth
+            margin="normal"
+            required
+            value={inviteForm.first_name}
+            onChange={(e) =>
+              setInviteForm((f) => ({ ...f, first_name: e.target.value }))
+            }
+          />
+          <TextField
+            label="Last Name"
+            fullWidth
+            margin="normal"
+            required
+            value={inviteForm.last_name}
+            onChange={(e) =>
+              setInviteForm((f) => ({ ...f, last_name: e.target.value }))
+            }
+          />
+          <TextField
+            label="Username"
+            fullWidth
+            margin="normal"
+            required
+            value={inviteForm.user_name}
+            onChange={(e) =>
+              setInviteForm((f) => ({ ...f, user_name: e.target.value }))
+            }
+            helperText="Auto-filled from email, but can be changed"
+          />
+          <TextField
+            select
+            label="Role"
+            fullWidth
+            margin="normal"
+            required
+            value={inviteForm.role}
+            onChange={(e) =>
+              setInviteForm((f) => ({ ...f, role: e.target.value }))
+            }
+          >
+            {roles.map((r) => (
+              <MenuItem key={r.code} value={r.code}>
+                {r.description}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            label="Phone (optional)"
+            fullWidth
+            margin="normal"
+            value={inviteForm.phone}
+            onChange={(e) =>
+              setInviteForm((f) => ({ ...f, phone: e.target.value }))
+            }
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setInviteOpen(false)}>Cancel</Button>
+          <Button
+            variant="contained"
+            onClick={handleInvite}
+            disabled={inviting}
+          >
+            {inviting ? "Sending…" : "Send Invite"}
           </Button>
         </DialogActions>
       </Dialog>
