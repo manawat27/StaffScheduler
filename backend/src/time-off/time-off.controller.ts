@@ -10,7 +10,11 @@ import {
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { RolesGuard } from "src/auth/roles.guard";
-import { Roles, MANAGEMENT_ROLES } from "src/auth/decorators/roles.decorator";
+import {
+  Roles,
+  MANAGEMENT_ROLES,
+  TIME_OFF_APPROVER_ROLES,
+} from "src/auth/decorators/roles.decorator";
 import { User } from "src/auth/decorators/user.decorator";
 import { AuthenticatedUser } from "src/auth/jwt.strategy";
 import { ConnectionInterceptor } from "src/connection/connection.interceptor";
@@ -48,7 +52,7 @@ export class TimeOffController {
   }
 
   @Put(":id/review")
-  @Roles(...MANAGEMENT_ROLES)
+  @Roles(...TIME_OFF_APPROVER_ROLES)
   review(
     @Param("id") id: string,
     @Body() dto: ReviewTimeOffDto,

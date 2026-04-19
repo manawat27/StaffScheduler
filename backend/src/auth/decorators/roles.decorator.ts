@@ -15,6 +15,12 @@ export const MANAGEMENT_ROLES = [
   AppRole.FOH_MANAGER,
 ];
 
+export const TIME_OFF_APPROVER_ROLES = [
+  AppRole.ADMIN,
+  AppRole.GENERAL_MANAGER,
+  AppRole.FOH_MANAGER,
+];
+
 export const ROLES_KEY = "roles";
 
 export const Roles = (...roles: AppRole[]) => SetMetadata(ROLES_KEY, roles);
