@@ -181,7 +181,29 @@
     }
   ],
   "roles": {
-    "realm": [{ "name": "admin" }, { "name": "general_manager" }, { "name": "front_of_house_manager" }, { "name": "host" }, { "name": "server" }, { "name": "expo" }]
+    "realm": [
+      {
+        "name": "admin"
+      },
+      {
+        "name": "general_manager"
+      },
+      {
+        "name": "front_of_house_manager"
+      },
+      {
+        "name": "host"
+      },
+      {
+        "name": "server"
+      },
+      {
+        "name": "expo"
+      },
+      {
+        "name": "bartender"
+      }
+    ]
   },
   "components": {
     "org.keycloak.userprofile.UserProfileProvider": [
@@ -220,7 +242,9 @@
           "temporary": false
         }
       ],
-      "realmRoles": ["admin"]
+      "realmRoles": [
+        "admin"
+      ]
     },
     {
       "username": "djohnson",
@@ -244,7 +268,9 @@
           "temporary": false
         }
       ],
-      "realmRoles": ["general_manager"]
+      "realmRoles": [
+        "general_manager"
+      ]
     },
     {
       "username": "smiller",
@@ -268,7 +294,9 @@
           "temporary": false
         }
       ],
-      "realmRoles": ["server"]
+      "realmRoles": [
+        "server"
+      ]
     },
     {
       "username": "lparker",
@@ -292,7 +320,9 @@
           "temporary": false
         }
       ],
-      "realmRoles": ["admin"]
+      "realmRoles": [
+        "admin"
+      ]
     },
     {
       "username": "emartin",
@@ -316,7 +346,9 @@
           "temporary": false
         }
       ],
-      "realmRoles": ["front_of_house_manager"]
+      "realmRoles": [
+        "front_of_house_manager"
+      ]
     },
     {
       "username": "awilson",
@@ -340,7 +372,893 @@
           "temporary": false
         }
       ],
-      "realmRoles": ["host"]
+      "realmRoles": [
+        "host"
+      ]
+    },
+    {
+      "username": "rthompson",
+      "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0c3",
+      "enabled": true,
+      "firstName": "Rachel",
+      "lastName": "Thompson",
+      "email": "rthompson@fifth-st.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "789-012-3456",
+        "dateOfBirth": "1991-03-14",
+        "country": "United States",
+        "city": "Miami",
+        "postalCode": "33101"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Kp3!mN8&wQ2x",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "front_of_house_manager"
+      ]
+    },
+    {
+      "username": "mgarcia",
+      "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0c4",
+      "enabled": true,
+      "firstName": "Michael",
+      "lastName": "Garcia",
+      "email": "mgarcia@fifth-st.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "890-123-4567",
+        "dateOfBirth": "1995-08-07",
+        "country": "United States",
+        "city": "Houston",
+        "postalCode": "77001"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Zt6@rL4!vH9s",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "host"
+      ]
+    },
+    {
+      "username": "jbrown",
+      "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0c5",
+      "enabled": true,
+      "firstName": "Jessica",
+      "lastName": "Brown",
+      "email": "jbrown@fifth-st.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "901-234-5678",
+        "dateOfBirth": "1987-12-01",
+        "country": "United States",
+        "city": "Phoenix",
+        "postalCode": "85001"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Wn5#cJ7&pM1x",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "expo"
+      ]
+    },
+    {
+      "username": "nchen",
+      "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a96",
+      "enabled": true,
+      "firstName": "Nathan",
+      "lastName": "Chen",
+      "email": "nchen@green-dragon.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "012-345-6789",
+        "dateOfBirth": "1983-05-18",
+        "country": "Canada",
+        "city": "Ottawa",
+        "postalCode": "K1A 0A6"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Bx8!qF2&nR5v",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "general_manager"
+      ]
+    },
+    {
+      "username": "jrivera",
+      "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a95",
+      "enabled": true,
+      "firstName": "Julia",
+      "lastName": "Rivera",
+      "email": "jrivera@green-dragon.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "123-987-6543",
+        "dateOfBirth": "1994-01-25",
+        "country": "Canada",
+        "city": "Calgary",
+        "postalCode": "T2P 1J9"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Yg4@hT9!dK6w",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "server"
+      ]
+    },
+    {
+      "username": "tkim",
+      "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a94",
+      "enabled": true,
+      "firstName": "Tyler",
+      "lastName": "Kim",
+      "email": "tkim@green-dragon.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "234-876-5432",
+        "dateOfBirth": "1996-10-12",
+        "country": "Canada",
+        "city": "Edmonton",
+        "postalCode": "T5J 0N3"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Mv7#eP3!sX1a",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "expo"
+      ]
+    },
+    {
+      "username": "clee",
+      "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0c6",
+      "enabled": true,
+      "firstName": "Chris",
+      "lastName": "Lee",
+      "email": "clee@fifth-st.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "789-012-3456",
+        "dateOfBirth": "1993-07-22",
+        "country": "United States",
+        "city": "Seattle",
+        "postalCode": "98101"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Hk4!nW7&rT2q",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "server"
+      ]
+    },
+    {
+      "username": "awright",
+      "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0c7",
+      "enabled": true,
+      "firstName": "Amanda",
+      "lastName": "Wright",
+      "email": "awright@fifth-st.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "890-123-4568",
+        "dateOfBirth": "1989-01-30",
+        "country": "United States",
+        "city": "Denver",
+        "postalCode": "80201"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Qm9@xL3!cP6v",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "bartender"
+      ]
+    },
+    {
+      "username": "bturner",
+      "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0c8",
+      "enabled": true,
+      "firstName": "Brandon",
+      "lastName": "Turner",
+      "email": "bturner@fifth-st.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "901-234-5679",
+        "dateOfBirth": "1997-04-11",
+        "country": "United States",
+        "city": "Portland",
+        "postalCode": "97201"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Fy2#kD8!mN4w",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "host"
+      ]
+    },
+    {
+      "username": "kmorris",
+      "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0c9",
+      "enabled": true,
+      "firstName": "Katie",
+      "lastName": "Morris",
+      "email": "kmorris@fifth-st.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "012-345-6790",
+        "dateOfBirth": "1994-09-05",
+        "country": "United States",
+        "city": "Austin",
+        "postalCode": "73301"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Jx5&bR1!gZ7s",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "server"
+      ]
+    },
+    {
+      "username": "jreyes",
+      "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0ca",
+      "enabled": true,
+      "firstName": "Jason",
+      "lastName": "Reyes",
+      "email": "jreyes@fifth-st.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "123-456-7891",
+        "dateOfBirth": "1986-11-17",
+        "country": "United States",
+        "city": "San Diego",
+        "postalCode": "92101"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Tn8!pV4@wK2x",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "expo"
+      ]
+    },
+    {
+      "username": "lhall",
+      "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0cb",
+      "enabled": true,
+      "firstName": "Laura",
+      "lastName": "Hall",
+      "email": "lhall@fifth-st.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "234-567-8902",
+        "dateOfBirth": "1991-06-28",
+        "country": "United States",
+        "city": "Nashville",
+        "postalCode": "37201"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Uw3#hM6!dQ9r",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "bartender"
+      ]
+    },
+    {
+      "username": "dross",
+      "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0cc",
+      "enabled": true,
+      "firstName": "Daniel",
+      "lastName": "Ross",
+      "email": "dross@fifth-st.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "345-678-9013",
+        "dateOfBirth": "1988-02-14",
+        "country": "United States",
+        "city": "Atlanta",
+        "postalCode": "30301"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Cv7@sG2!jY5n",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "server"
+      ]
+    },
+    {
+      "username": "npatel",
+      "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0cd",
+      "enabled": true,
+      "firstName": "Nina",
+      "lastName": "Patel",
+      "email": "npatel@fifth-st.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "456-789-0124",
+        "dateOfBirth": "1996-08-09",
+        "country": "United States",
+        "city": "San Francisco",
+        "postalCode": "94101"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Lp1!wX8@tB4m",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "host"
+      ]
+    },
+    {
+      "username": "tcooper",
+      "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0ce",
+      "enabled": true,
+      "firstName": "Trevor",
+      "lastName": "Cooper",
+      "email": "tcooper@fifth-st.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "567-890-1235",
+        "dateOfBirth": "1990-12-03",
+        "country": "United States",
+        "city": "Boston",
+        "postalCode": "02101"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Rk6#nF3!yH9v",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "bartender"
+      ]
+    },
+    {
+      "username": "sking",
+      "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0cf",
+      "enabled": true,
+      "firstName": "Samantha",
+      "lastName": "King",
+      "email": "sking@fifth-st.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "678-901-2346",
+        "dateOfBirth": "1987-03-21",
+        "country": "United States",
+        "city": "Dallas",
+        "postalCode": "75201"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Gz4@mC7!qW2p",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "server"
+      ]
+    },
+    {
+      "username": "rwood",
+      "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0d0",
+      "enabled": true,
+      "firstName": "Ryan",
+      "lastName": "Wood",
+      "email": "rwood@fifth-st.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "789-012-3457",
+        "dateOfBirth": "1995-05-16",
+        "country": "United States",
+        "city": "Minneapolis",
+        "postalCode": "55401"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Ds8!vJ1@bN5k",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "expo"
+      ]
+    },
+    {
+      "username": "mflores",
+      "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0d1",
+      "enabled": true,
+      "firstName": "Maria",
+      "lastName": "Flores",
+      "email": "mflores@fifth-st.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "890-123-4569",
+        "dateOfBirth": "1992-10-07",
+        "country": "United States",
+        "city": "Philadelphia",
+        "postalCode": "19101"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Xn3#tA6!pL8f",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "bartender"
+      ]
+    },
+    {
+      "username": "phughes",
+      "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0d2",
+      "enabled": true,
+      "firstName": "Patrick",
+      "lastName": "Hughes",
+      "email": "phughes@fifth-st.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "901-234-5670",
+        "dateOfBirth": "1984-07-25",
+        "country": "United States",
+        "city": "Detroit",
+        "postalCode": "48201"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Wq9@yE2!cK4g",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "host"
+      ]
+    },
+    {
+      "username": "awong",
+      "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0d3",
+      "enabled": true,
+      "firstName": "Amy",
+      "lastName": "Wong",
+      "email": "awong@fifth-st.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "012-345-6791",
+        "dateOfBirth": "1998-01-12",
+        "country": "United States",
+        "city": "Las Vegas",
+        "postalCode": "89101"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Bh5!rU8@zS3d",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "server"
+      ]
+    },
+    {
+      "username": "sscott",
+      "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a93",
+      "enabled": true,
+      "firstName": "Sophie",
+      "lastName": "Scott",
+      "email": "sscott@green-dragon.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "345-876-5432",
+        "dateOfBirth": "1990-03-08",
+        "country": "Canada",
+        "city": "Winnipeg",
+        "postalCode": "R3C 0A1"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Pk2!nH7@sW4x",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "bartender"
+      ]
+    },
+    {
+      "username": "jcampbell",
+      "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a92",
+      "enabled": true,
+      "firstName": "Jake",
+      "lastName": "Campbell",
+      "email": "jcampbell@green-dragon.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "456-765-4321",
+        "dateOfBirth": "1993-08-19",
+        "country": "Canada",
+        "city": "Hamilton",
+        "postalCode": "L8P 1A1"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Vm6@tK3!gR8q",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "server"
+      ]
+    },
+    {
+      "username": "oanderson",
+      "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a91",
+      "enabled": true,
+      "firstName": "Olivia",
+      "lastName": "Anderson",
+      "email": "oanderson@green-dragon.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "567-654-3210",
+        "dateOfBirth": "1987-11-02",
+        "country": "Canada",
+        "city": "Quebec City",
+        "postalCode": "G1R 1A1"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Fy9#wB1!pN5m",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "host"
+      ]
+    },
+    {
+      "username": "mwhite",
+      "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a90",
+      "enabled": true,
+      "firstName": "Marcus",
+      "lastName": "White",
+      "email": "mwhite@green-dragon.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "678-543-2109",
+        "dateOfBirth": "1995-06-14",
+        "country": "Canada",
+        "city": "Halifax",
+        "postalCode": "B3H 1A1"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Jc4!xD8@kL2v",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "bartender"
+      ]
+    },
+    {
+      "username": "hlee",
+      "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a8f",
+      "enabled": true,
+      "firstName": "Hannah",
+      "lastName": "Lee",
+      "email": "hlee@green-dragon.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "789-432-1098",
+        "dateOfBirth": "1991-02-27",
+        "country": "Canada",
+        "city": "Victoria",
+        "postalCode": "V8W 1A1"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Qr7@mG5!tY3s",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "server"
+      ]
+    },
+    {
+      "username": "dmoore",
+      "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a8e",
+      "enabled": true,
+      "firstName": "Dylan",
+      "lastName": "Moore",
+      "email": "dmoore@green-dragon.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "890-321-0987",
+        "dateOfBirth": "1986-09-10",
+        "country": "Canada",
+        "city": "Saskatoon",
+        "postalCode": "S7K 1A1"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Zn1!hV6@bP8w",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "expo"
+      ]
+    },
+    {
+      "username": "ctaylor",
+      "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a8d",
+      "enabled": true,
+      "firstName": "Chloe",
+      "lastName": "Taylor",
+      "email": "ctaylor@green-dragon.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "901-210-9876",
+        "dateOfBirth": "1994-04-23",
+        "country": "Canada",
+        "city": "London",
+        "postalCode": "N6A 1A1"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Ks3#fX9!dC7r",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "bartender"
+      ]
+    },
+    {
+      "username": "bnguyen",
+      "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a8c",
+      "enabled": true,
+      "firstName": "Ben",
+      "lastName": "Nguyen",
+      "email": "bnguyen@green-dragon.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "012-109-8765",
+        "dateOfBirth": "1989-12-16",
+        "country": "Canada",
+        "city": "Kitchener",
+        "postalCode": "N2G 1A1"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Tw5@jR2!yM4n",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "server"
+      ]
+    },
+    {
+      "username": "krobinson",
+      "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a8b",
+      "enabled": true,
+      "firstName": "Kate",
+      "lastName": "Robinson",
+      "email": "krobinson@green-dragon.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "123-098-7654",
+        "dateOfBirth": "1997-07-01",
+        "country": "Canada",
+        "city": "Windsor",
+        "postalCode": "N9A 1A1"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Hg8!cL4@vQ6k",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "host"
+      ]
+    },
+    {
+      "username": "rsingh",
+      "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a8a",
+      "enabled": true,
+      "firstName": "Raj",
+      "lastName": "Singh",
+      "email": "rsingh@green-dragon.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "234-987-6543",
+        "dateOfBirth": "1985-01-19",
+        "country": "Canada",
+        "city": "Regina",
+        "postalCode": "S4P 1A1"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Dx2@pN7!wF9j",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "server"
+      ]
+    },
+    {
+      "username": "lwilliams",
+      "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a89",
+      "enabled": true,
+      "firstName": "Lisa",
+      "lastName": "Williams",
+      "email": "lwilliams@green-dragon.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "345-876-5433",
+        "dateOfBirth": "1992-05-30",
+        "country": "Canada",
+        "city": "St. Johns",
+        "postalCode": "A1C 1A1"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Nb6!sY3@kT8e",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "expo"
+      ]
+    },
+    {
+      "username": "jmurphy",
+      "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a88",
+      "enabled": true,
+      "firstName": "James",
+      "lastName": "Murphy",
+      "email": "jmurphy@green-dragon.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "456-765-4322",
+        "dateOfBirth": "1988-10-22",
+        "country": "Canada",
+        "city": "Kelowna",
+        "postalCode": "V1Y 1A1"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Ra1#gW5!mJ4c",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "bartender"
+      ]
+    },
+    {
+      "username": "egraham",
+      "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a87",
+      "enabled": true,
+      "firstName": "Emma",
+      "lastName": "Graham",
+      "email": "egraham@green-dragon.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "567-654-3211",
+        "dateOfBirth": "1996-03-15",
+        "country": "Canada",
+        "city": "Barrie",
+        "postalCode": "L4M 1A1"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Uf9@bK2!xH7a",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "host"
+      ]
+    },
+    {
+      "username": "apetrov",
+      "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a86",
+      "enabled": true,
+      "firstName": "Anton",
+      "lastName": "Petrov",
+      "email": "apetrov@green-dragon.com",
+      "emailVerified": true,
+      "attributes": {
+        "phone": "678-543-2100",
+        "dateOfBirth": "1983-08-04",
+        "country": "Canada",
+        "city": "Guelph",
+        "postalCode": "N1G 1A1"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Yl4!dS8@nE3z",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "server"
+      ]
     }
   ],
   "organizations": [
@@ -376,7 +1294,9 @@
               "temporary": false
             }
           ],
-          "realmRoles": ["admin"]
+          "realmRoles": [
+            "admin"
+          ]
         },
         {
           "username": "djohnson",
@@ -399,7 +1319,9 @@
               "temporary": false
             }
           ],
-          "realmRoles": ["general_manager"]
+          "realmRoles": [
+            "general_manager"
+          ]
         },
         {
           "username": "smiller",
@@ -422,7 +1344,451 @@
               "temporary": false
             }
           ],
-          "realmRoles": ["server"]
+          "realmRoles": [
+            "server"
+          ]
+        },
+        {
+          "username": "rthompson",
+          "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0c3",
+          "enabled": true,
+          "firstName": "Rachel",
+          "lastName": "Thompson",
+          "email": "rthompson@fifth-st.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "789-012-3456",
+            "dateOfBirth": "1991-03-14",
+            "country": "United States",
+            "city": "Miami",
+            "postalCode": "33101"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Kp3!mN8&wQ2x",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "front_of_house_manager"
+          ]
+        },
+        {
+          "username": "mgarcia",
+          "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0c4",
+          "enabled": true,
+          "firstName": "Michael",
+          "lastName": "Garcia",
+          "email": "mgarcia@fifth-st.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "890-123-4567",
+            "dateOfBirth": "1995-08-07",
+            "country": "United States",
+            "city": "Houston",
+            "postalCode": "77001"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Zt6@rL4!vH9s",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "host"
+          ]
+        },
+        {
+          "username": "jbrown",
+          "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0c5",
+          "enabled": true,
+          "firstName": "Jessica",
+          "lastName": "Brown",
+          "email": "jbrown@fifth-st.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "901-234-5678",
+            "dateOfBirth": "1987-12-01",
+            "country": "United States",
+            "city": "Phoenix",
+            "postalCode": "85001"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Wn5#cJ7&pM1x",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "expo"
+          ]
+        },
+        {
+          "username": "clee",
+          "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0c6",
+          "enabled": true,
+          "firstName": "Chris",
+          "lastName": "Lee",
+          "email": "clee@fifth-st.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "789-012-3456",
+            "dateOfBirth": "1993-07-22",
+            "country": "United States",
+            "city": "Seattle",
+            "postalCode": "98101"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Hk4!nW7&rT2q",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "server"
+          ]
+        },
+        {
+          "username": "awright",
+          "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0c7",
+          "enabled": true,
+          "firstName": "Amanda",
+          "lastName": "Wright",
+          "email": "awright@fifth-st.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "890-123-4568",
+            "dateOfBirth": "1989-01-30",
+            "country": "United States",
+            "city": "Denver",
+            "postalCode": "80201"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Qm9@xL3!cP6v",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "bartender"
+          ]
+        },
+        {
+          "username": "bturner",
+          "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0c8",
+          "enabled": true,
+          "firstName": "Brandon",
+          "lastName": "Turner",
+          "email": "bturner@fifth-st.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "901-234-5679",
+            "dateOfBirth": "1997-04-11",
+            "country": "United States",
+            "city": "Portland",
+            "postalCode": "97201"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Fy2#kD8!mN4w",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "host"
+          ]
+        },
+        {
+          "username": "kmorris",
+          "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0c9",
+          "enabled": true,
+          "firstName": "Katie",
+          "lastName": "Morris",
+          "email": "kmorris@fifth-st.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "012-345-6790",
+            "dateOfBirth": "1994-09-05",
+            "country": "United States",
+            "city": "Austin",
+            "postalCode": "73301"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Jx5&bR1!gZ7s",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "server"
+          ]
+        },
+        {
+          "username": "jreyes",
+          "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0ca",
+          "enabled": true,
+          "firstName": "Jason",
+          "lastName": "Reyes",
+          "email": "jreyes@fifth-st.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "123-456-7891",
+            "dateOfBirth": "1986-11-17",
+            "country": "United States",
+            "city": "San Diego",
+            "postalCode": "92101"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Tn8!pV4@wK2x",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "expo"
+          ]
+        },
+        {
+          "username": "lhall",
+          "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0cb",
+          "enabled": true,
+          "firstName": "Laura",
+          "lastName": "Hall",
+          "email": "lhall@fifth-st.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "234-567-8902",
+            "dateOfBirth": "1991-06-28",
+            "country": "United States",
+            "city": "Nashville",
+            "postalCode": "37201"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Uw3#hM6!dQ9r",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "bartender"
+          ]
+        },
+        {
+          "username": "dross",
+          "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0cc",
+          "enabled": true,
+          "firstName": "Daniel",
+          "lastName": "Ross",
+          "email": "dross@fifth-st.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "345-678-9013",
+            "dateOfBirth": "1988-02-14",
+            "country": "United States",
+            "city": "Atlanta",
+            "postalCode": "30301"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Cv7@sG2!jY5n",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "server"
+          ]
+        },
+        {
+          "username": "npatel",
+          "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0cd",
+          "enabled": true,
+          "firstName": "Nina",
+          "lastName": "Patel",
+          "email": "npatel@fifth-st.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "456-789-0124",
+            "dateOfBirth": "1996-08-09",
+            "country": "United States",
+            "city": "San Francisco",
+            "postalCode": "94101"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Lp1!wX8@tB4m",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "host"
+          ]
+        },
+        {
+          "username": "tcooper",
+          "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0ce",
+          "enabled": true,
+          "firstName": "Trevor",
+          "lastName": "Cooper",
+          "email": "tcooper@fifth-st.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "567-890-1235",
+            "dateOfBirth": "1990-12-03",
+            "country": "United States",
+            "city": "Boston",
+            "postalCode": "02101"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Rk6#nF3!yH9v",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "bartender"
+          ]
+        },
+        {
+          "username": "sking",
+          "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0cf",
+          "enabled": true,
+          "firstName": "Samantha",
+          "lastName": "King",
+          "email": "sking@fifth-st.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "678-901-2346",
+            "dateOfBirth": "1987-03-21",
+            "country": "United States",
+            "city": "Dallas",
+            "postalCode": "75201"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Gz4@mC7!qW2p",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "server"
+          ]
+        },
+        {
+          "username": "rwood",
+          "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0d0",
+          "enabled": true,
+          "firstName": "Ryan",
+          "lastName": "Wood",
+          "email": "rwood@fifth-st.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "789-012-3457",
+            "dateOfBirth": "1995-05-16",
+            "country": "United States",
+            "city": "Minneapolis",
+            "postalCode": "55401"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Ds8!vJ1@bN5k",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "expo"
+          ]
+        },
+        {
+          "username": "mflores",
+          "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0d1",
+          "enabled": true,
+          "firstName": "Maria",
+          "lastName": "Flores",
+          "email": "mflores@fifth-st.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "890-123-4569",
+            "dateOfBirth": "1992-10-07",
+            "country": "United States",
+            "city": "Philadelphia",
+            "postalCode": "19101"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Xn3#tA6!pL8f",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "bartender"
+          ]
+        },
+        {
+          "username": "phughes",
+          "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0d2",
+          "enabled": true,
+          "firstName": "Patrick",
+          "lastName": "Hughes",
+          "email": "phughes@fifth-st.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "901-234-5670",
+            "dateOfBirth": "1984-07-25",
+            "country": "United States",
+            "city": "Detroit",
+            "postalCode": "48201"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Wq9@yE2!cK4g",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "host"
+          ]
+        },
+        {
+          "username": "awong",
+          "id": "c1b8f3a4-9f4e-4b9a-9e6a-b8f1b9a8e0d3",
+          "enabled": true,
+          "firstName": "Amy",
+          "lastName": "Wong",
+          "email": "awong@fifth-st.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "012-345-6791",
+            "dateOfBirth": "1998-01-12",
+            "country": "United States",
+            "city": "Las Vegas",
+            "postalCode": "89101"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Bh5!rU8@zS3d",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "server"
+          ]
         }
       ]
     },
@@ -459,7 +1825,9 @@
               "temporary": false
             }
           ],
-          "realmRoles": ["admin"]
+          "realmRoles": [
+            "admin"
+          ]
         },
         {
           "username": "emartin",
@@ -483,7 +1851,9 @@
               "temporary": false
             }
           ],
-          "realmRoles": ["front_of_house_manager"]
+          "realmRoles": [
+            "front_of_house_manager"
+          ]
         },
         {
           "username": "awilson",
@@ -507,7 +1877,451 @@
               "temporary": false
             }
           ],
-          "realmRoles": ["host"]
+          "realmRoles": [
+            "host"
+          ]
+        },
+        {
+          "username": "nchen",
+          "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a96",
+          "enabled": true,
+          "firstName": "Nathan",
+          "lastName": "Chen",
+          "email": "nchen@green-dragon.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "012-345-6789",
+            "dateOfBirth": "1983-05-18",
+            "country": "Canada",
+            "city": "Ottawa",
+            "postalCode": "K1A 0A6"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Bx8!qF2&nR5v",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "general_manager"
+          ]
+        },
+        {
+          "username": "jrivera",
+          "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a95",
+          "enabled": true,
+          "firstName": "Julia",
+          "lastName": "Rivera",
+          "email": "jrivera@green-dragon.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "123-987-6543",
+            "dateOfBirth": "1994-01-25",
+            "country": "Canada",
+            "city": "Calgary",
+            "postalCode": "T2P 1J9"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Yg4@hT9!dK6w",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "server"
+          ]
+        },
+        {
+          "username": "tkim",
+          "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a94",
+          "enabled": true,
+          "firstName": "Tyler",
+          "lastName": "Kim",
+          "email": "tkim@green-dragon.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "234-876-5432",
+            "dateOfBirth": "1996-10-12",
+            "country": "Canada",
+            "city": "Edmonton",
+            "postalCode": "T5J 0N3"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Mv7#eP3!sX1a",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "expo"
+          ]
+        },
+        {
+          "username": "sscott",
+          "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a93",
+          "enabled": true,
+          "firstName": "Sophie",
+          "lastName": "Scott",
+          "email": "sscott@green-dragon.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "345-876-5432",
+            "dateOfBirth": "1990-03-08",
+            "country": "Canada",
+            "city": "Winnipeg",
+            "postalCode": "R3C 0A1"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Pk2!nH7@sW4x",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "bartender"
+          ]
+        },
+        {
+          "username": "jcampbell",
+          "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a92",
+          "enabled": true,
+          "firstName": "Jake",
+          "lastName": "Campbell",
+          "email": "jcampbell@green-dragon.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "456-765-4321",
+            "dateOfBirth": "1993-08-19",
+            "country": "Canada",
+            "city": "Hamilton",
+            "postalCode": "L8P 1A1"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Vm6@tK3!gR8q",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "server"
+          ]
+        },
+        {
+          "username": "oanderson",
+          "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a91",
+          "enabled": true,
+          "firstName": "Olivia",
+          "lastName": "Anderson",
+          "email": "oanderson@green-dragon.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "567-654-3210",
+            "dateOfBirth": "1987-11-02",
+            "country": "Canada",
+            "city": "Quebec City",
+            "postalCode": "G1R 1A1"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Fy9#wB1!pN5m",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "host"
+          ]
+        },
+        {
+          "username": "mwhite",
+          "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a90",
+          "enabled": true,
+          "firstName": "Marcus",
+          "lastName": "White",
+          "email": "mwhite@green-dragon.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "678-543-2109",
+            "dateOfBirth": "1995-06-14",
+            "country": "Canada",
+            "city": "Halifax",
+            "postalCode": "B3H 1A1"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Jc4!xD8@kL2v",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "bartender"
+          ]
+        },
+        {
+          "username": "hlee",
+          "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a8f",
+          "enabled": true,
+          "firstName": "Hannah",
+          "lastName": "Lee",
+          "email": "hlee@green-dragon.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "789-432-1098",
+            "dateOfBirth": "1991-02-27",
+            "country": "Canada",
+            "city": "Victoria",
+            "postalCode": "V8W 1A1"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Qr7@mG5!tY3s",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "server"
+          ]
+        },
+        {
+          "username": "dmoore",
+          "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a8e",
+          "enabled": true,
+          "firstName": "Dylan",
+          "lastName": "Moore",
+          "email": "dmoore@green-dragon.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "890-321-0987",
+            "dateOfBirth": "1986-09-10",
+            "country": "Canada",
+            "city": "Saskatoon",
+            "postalCode": "S7K 1A1"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Zn1!hV6@bP8w",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "expo"
+          ]
+        },
+        {
+          "username": "ctaylor",
+          "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a8d",
+          "enabled": true,
+          "firstName": "Chloe",
+          "lastName": "Taylor",
+          "email": "ctaylor@green-dragon.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "901-210-9876",
+            "dateOfBirth": "1994-04-23",
+            "country": "Canada",
+            "city": "London",
+            "postalCode": "N6A 1A1"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Ks3#fX9!dC7r",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "bartender"
+          ]
+        },
+        {
+          "username": "bnguyen",
+          "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a8c",
+          "enabled": true,
+          "firstName": "Ben",
+          "lastName": "Nguyen",
+          "email": "bnguyen@green-dragon.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "012-109-8765",
+            "dateOfBirth": "1989-12-16",
+            "country": "Canada",
+            "city": "Kitchener",
+            "postalCode": "N2G 1A1"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Tw5@jR2!yM4n",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "server"
+          ]
+        },
+        {
+          "username": "krobinson",
+          "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a8b",
+          "enabled": true,
+          "firstName": "Kate",
+          "lastName": "Robinson",
+          "email": "krobinson@green-dragon.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "123-098-7654",
+            "dateOfBirth": "1997-07-01",
+            "country": "Canada",
+            "city": "Windsor",
+            "postalCode": "N9A 1A1"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Hg8!cL4@vQ6k",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "host"
+          ]
+        },
+        {
+          "username": "rsingh",
+          "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a8a",
+          "enabled": true,
+          "firstName": "Raj",
+          "lastName": "Singh",
+          "email": "rsingh@green-dragon.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "234-987-6543",
+            "dateOfBirth": "1985-01-19",
+            "country": "Canada",
+            "city": "Regina",
+            "postalCode": "S4P 1A1"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Dx2@pN7!wF9j",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "server"
+          ]
+        },
+        {
+          "username": "lwilliams",
+          "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a89",
+          "enabled": true,
+          "firstName": "Lisa",
+          "lastName": "Williams",
+          "email": "lwilliams@green-dragon.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "345-876-5433",
+            "dateOfBirth": "1992-05-30",
+            "country": "Canada",
+            "city": "St. Johns",
+            "postalCode": "A1C 1A1"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Nb6!sY3@kT8e",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "expo"
+          ]
+        },
+        {
+          "username": "jmurphy",
+          "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a88",
+          "enabled": true,
+          "firstName": "James",
+          "lastName": "Murphy",
+          "email": "jmurphy@green-dragon.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "456-765-4322",
+            "dateOfBirth": "1988-10-22",
+            "country": "Canada",
+            "city": "Kelowna",
+            "postalCode": "V1Y 1A1"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Ra1#gW5!mJ4c",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "bartender"
+          ]
+        },
+        {
+          "username": "egraham",
+          "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a87",
+          "enabled": true,
+          "firstName": "Emma",
+          "lastName": "Graham",
+          "email": "egraham@green-dragon.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "567-654-3211",
+            "dateOfBirth": "1996-03-15",
+            "country": "Canada",
+            "city": "Barrie",
+            "postalCode": "L4M 1A1"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Uf9@bK2!xH7a",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "host"
+          ]
+        },
+        {
+          "username": "apetrov",
+          "id": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a86",
+          "enabled": true,
+          "firstName": "Anton",
+          "lastName": "Petrov",
+          "email": "apetrov@green-dragon.com",
+          "emailVerified": true,
+          "attributes": {
+            "phone": "678-543-2100",
+            "dateOfBirth": "1983-08-04",
+            "country": "Canada",
+            "city": "Guelph",
+            "postalCode": "N1G 1A1"
+          },
+          "credentials": [
+            {
+              "type": "password",
+              "value": "Yl4!dS8@nE3z",
+              "temporary": false
+            }
+          ],
+          "realmRoles": [
+            "server"
+          ]
         }
       ]
     }
