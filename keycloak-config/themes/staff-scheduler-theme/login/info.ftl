@@ -4,7 +4,7 @@
         <#if messageHeader??>
             <p class="ss-subtitle">${kcSanitize(messageHeader)?no_esc}</p>
         <#else>
-            <p class="ss-subtitle">${message.summary}</p>
+            <p class="ss-subtitle">${kcSanitize(message.summary)?no_esc}</p>
         </#if>
     <#elseif section = "form">
         <div class="ss-center">
