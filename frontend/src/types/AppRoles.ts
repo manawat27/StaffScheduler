@@ -11,4 +11,10 @@ export class AppRoles {
     AppRoles.GeneralManager,
     AppRoles.FohManager,
   ]
+
+  static TimeOffApproverRoles = [
+    AppRoles.GeneralManager,
+    AppRoles.FohManager,
+    AppRoles.Admin,
+  ]
 }

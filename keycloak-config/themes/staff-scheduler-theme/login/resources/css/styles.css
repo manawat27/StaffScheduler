@@ -1,0 +1,455 @@
+/* ========================================
+   Staff Scheduler - Keycloak Login Theme
+   Matches frontend: primary #0B5394, secondary #385a8a
+   ======================================== */
+
+/* ---- Reset ---- */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* ---- Page ---- */
+body.ss-body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+                 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #0B5394 0%, #385a8a 50%, #1a3a5c 100%) !important;
+    background-image: none;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.ss-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.ss-container {
+    width: 100%;
+    max-width: 440px;
+}
+
+/* ---- Card ---- */
+.ss-card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18),
+                0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: 2.5rem;
+    width: 100%;
+}
+
+/* ---- Header ---- */
+.ss-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.ss-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0B5394;
+    margin: 0 0 0.25rem 0;
+    letter-spacing: -0.02em;
+}
+
+.ss-subtitle {
+    font-size: 0.95rem;
+    color: #64748b;
+    margin: 0.25rem 0 0 0;
+    font-weight: 400;
+}
+
+/* ---- Alerts ---- */
+.ss-alert {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.ss-alert-error {
+    background-color: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+.ss-alert-success {
+    background-color: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+.ss-alert-warning {
+    background-color: #fffbeb;
+    color: #92400e;
+    border: 1px solid #fde68a;
+}
+
+.ss-alert-info {
+    background-color: #eff6ff;
+    color: #0B5394;
+    border: 1px solid #bfdbfe;
+}
+
+/* ---- Form fields ---- */
+.ss-field {
+    margin-bottom: 1.25rem;
+}
+
+.ss-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 0.375rem;
+}
+
+.ss-input {
+    width: 100%;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.9375rem;
+    color: #1e293b;
+    background: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    font-family: inherit;
+}
+
+.ss-input:focus {
+    border-color: #0B5394;
+    box-shadow: 0 0 0 3px rgba(11, 83, 148, 0.12);
+}
+
+.ss-input.ss-input-error {
+    border-color: #dc2626;
+}
+
+.ss-error-msg {
+    display: block;
+    font-size: 0.8125rem;
+    color: #dc2626;
+    margin-top: 0.25rem;
+}
+
+/* ---- Options row (remember me + forgot password) ---- */
+.ss-options-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+}
+
+.ss-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #475569;
+    cursor: pointer;
+    font-size: 0.875rem;
+}
+
+.ss-checkbox input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    accent-color: #0B5394;
+    cursor: pointer;
+}
+
+/* ---- Links ---- */
+.ss-link {
+    color: #0B5394;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: color 0.15s ease;
+}
+
+.ss-link:hover {
+    color: #094075;
+    text-decoration: underline;
+}
+
+/* ---- Buttons ---- */
+.ss-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.6875rem 1.25rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+    font-family: inherit;
+    line-height: 1.5;
+}
+
+.ss-btn-primary {
+    background-color: #0B5394;
+    color: #ffffff;
+}
+
+.ss-btn-primary:hover {
+    background-color: #094075;
+    box-shadow: 0 2px 8px rgba(11, 83, 148, 0.3);
+}
+
+.ss-btn-primary:active {
+    background-color: #072f52;
+}
+
+.ss-btn-outline {
+    background-color: #ffffff;
+    color: #334155;
+    border: 1.5px solid #cbd5e1;
+}
+
+.ss-btn-outline:hover {
+    background-color: #f1f5f9;
+    color: #1e293b;
+}
+
+.ss-btn-social {
+    background-color: #f8fafc;
+    color: #334155;
+    border: 1.5px solid #e2e8f0;
+    margin-bottom: 0.5rem;
+}
+
+.ss-btn-social:hover {
+    background-color: #f1f5f9;
+}
+
+/* ---- Actions ---- */
+.ss-actions {
+    margin-top: 0.5rem;
+}
+
+/* ---- Social providers ---- */
+.ss-social {
+    margin-top: 1.5rem;
+}
+
+.ss-divider {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    color: #94a3b8;
+    font-size: 0.8125rem;
+}
+
+.ss-divider::before,
+.ss-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #e2e8f0;
+}
+
+.ss-divider span {
+    padding: 0 1rem;
+}
+
+/* ---- Info section ---- */
+.ss-info {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+.ss-info a {
+    color: #0B5394;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.ss-info a:hover {
+    text-decoration: underline;
+}
+
+/* ---- Footer ---- */
+.ss-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* ---- Utility ---- */
+.ss-text {
+    font-size: 0.9375rem;
+    color: #475569;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.ss-center {
+    text-align: center;
+}
+
+.required { color: #dc2626; }
+
+/* ========================================
+   PatternFly overrides
+   For parent templates we don't override
+   (e.g. registration form)
+   ======================================== */
+
+/* Remove PF page chrome */
+.pf-v5-c-login, .pf-c-login,
+.pf-v5-c-page, .pf-c-page {
+    background: transparent !important;
+    background-image: none !important;
+    min-height: auto !important;
+    padding: 0 !important;
+}
+
+.pf-v5-c-login__main, .pf-c-login__main {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Style PF forms inside our card */
+.ss-form-container .pf-v5-c-form__group,
+.ss-form-container .pf-c-form__group {
+    margin-bottom: 1.25rem;
+}
+
+.ss-form-container .pf-v5-c-form__label-text,
+.ss-form-container .pf-c-form__label-text,
+.ss-form-container .pf-v5-c-form__label,
+.ss-form-container .pf-c-form__label,
+.ss-form-container label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #334155;
+}
+
+.ss-form-container input[type="text"],
+.ss-form-container input[type="email"],
+.ss-form-container input[type="password"],
+.ss-form-container input[type="tel"],
+.ss-form-container input[type="number"],
+.ss-form-container select,
+.ss-form-container textarea {
+    width: 100%;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.9375rem;
+    color: #1e293b;
+    background: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    font-family: inherit;
+}
+
+.ss-form-container input[type="text"]:focus,
+.ss-form-container input[type="email"]:focus,
+.ss-form-container input[type="password"]:focus,
+.ss-form-container input[type="tel"]:focus,
+.ss-form-container input[type="number"]:focus,
+.ss-form-container select:focus,
+.ss-form-container textarea:focus {
+    border-color: #0B5394;
+    box-shadow: 0 0 0 3px rgba(11, 83, 148, 0.12);
+}
+
+/* PF form-control wrapper reset */
+.ss-form-container .pf-v5-c-form-control,
+.ss-form-container .pf-c-form-control {
+    background: transparent;
+    border: none;
+    padding: 0;
+    --pf-v5-c-form-control--BorderColor: transparent;
+    --pf-c-form-control--BorderColor: transparent;
+}
+
+/* PF buttons */
+.ss-form-container .pf-v5-c-button.pf-m-primary,
+.ss-form-container .pf-c-button.pf-m-primary,
+.ss-form-container input[type="submit"],
+.ss-form-container button[type="submit"] {
+    width: 100%;
+    padding: 0.6875rem 1.25rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    border-radius: 8px;
+    background-color: #0B5394;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-family: inherit;
+}
+
+.ss-form-container .pf-v5-c-button.pf-m-primary:hover,
+.ss-form-container .pf-c-button.pf-m-primary:hover,
+.ss-form-container input[type="submit"]:hover,
+.ss-form-container button[type="submit"]:hover {
+    background-color: #094075;
+}
+
+/* PF link buttons */
+.ss-form-container .pf-v5-c-button.pf-m-link,
+.ss-form-container .pf-c-button.pf-m-link,
+.ss-form-container a {
+    color: #0B5394;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.ss-form-container a:hover {
+    text-decoration: underline;
+}
+
+/* Keycloak form sections */
+.ss-form-container #kc-form-buttons {
+    margin-top: 1.5rem;
+}
+
+.ss-form-container #kc-form-options {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.875rem;
+}
+
+/* PF error text */
+.ss-form-container .pf-v5-c-helper-text__item.pf-m-error,
+.ss-form-container .pf-c-form__helper-text.pf-m-error,
+.ss-form-container .kc-feedback-text {
+    color: #dc2626;
+    font-size: 0.8125rem;
+    margin-top: 0.25rem;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 480px) {
+    .ss-page {
+        padding: 1rem;
+        align-items: flex-start;
+        padding-top: 2rem;
+    }
+
+    .ss-card {
+        padding: 1.75rem;
+        border-radius: 12px;
+    }
+
+    .ss-title {
+        font-size: 1.5rem;
+    }
+}

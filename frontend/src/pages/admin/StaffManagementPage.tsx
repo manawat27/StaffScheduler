@@ -47,6 +47,8 @@ import type {
   Position,
   TimeOffRequest,
 } from "../../types/Scheduling"
+import KeycloakService from "../../auth/keycloakService"
+import { AppRoles } from "../../types/AppRoles"
 
 interface AppUser {
   uuid: string
@@ -94,6 +96,11 @@ export default function StaffManagementPage() {
     phone: "",
   })
   const [inviting, setInviting] = useState(false)
+
+  const userRoles = KeycloakService.getUserInfo()?.roles || []
+  const canApproveTimeOff = AppRoles.TimeOffApproverRoles.some((r) =>
+    userRoles.includes(r),
+  )
 
   useEffect(() => {
     loadData()
@@ -446,7 +453,7 @@ export default function StaffManagementPage() {
                     />
                   </TableCell>
                   <TableCell align="right">
-                    {req.status === "pending" && (
+                    {req.status === "pending" && canApproveTimeOff && (
                       <Box className="flex gap-1 justify-end">
                         <Button
                           size="small"
