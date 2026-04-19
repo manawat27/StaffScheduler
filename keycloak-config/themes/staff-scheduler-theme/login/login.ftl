@@ -47,7 +47,7 @@
     <#elseif section = "socialProviders">
         <#if realm.password && social?? && social.providers?has_content>
             <div class="ss-social">
-                <div class="ss-divider"><span>or</span></div>
+                <div class="ss-divider"><span>${msg("identity-provider-login-label")}</span></div>
                 <#list social.providers as p>
                     <a id="social-${p.alias}" class="ss-btn ss-btn-social" href="${p.loginUrl}">
                         <#if p.iconClasses?has_content><i class="${p.iconClasses!}" aria-hidden="true"></i> </#if>
